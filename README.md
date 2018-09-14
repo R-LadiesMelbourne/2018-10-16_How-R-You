@@ -1,30 +1,63 @@
 
--   [How R you? - Lightning talks from the community](#how-r-you---lightning-talks-from-the-community)
-    -   [How to submit your piece of R: [submit here](https://goo.gl/forms/9aMM5V7aT5X4A41x1)](#how-to-submit-your-piece-of-r-submit-here)
--   [Panel discussion with past speakers](#panel-discussion-with-past-speakers)
+-   [Packages to install](#packages-to-install)
+-   [Reference material for the following tutorial](#reference-material-for-the-following-tutorial)
+-   [Downloading tweets with `twitteR`](#downloading-tweets-with-twitter)
 
-<img src="2018-10-16_How-R-You_files/figure-markdown_github/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+Packages to install
+===================
 
-How R you? - Lightning talks from the community
------------------------------------------------
+``` r
+install.packages("twitteR")
+install.packages("wordcloud2")
+install.packages("tidyverse")
+install.packages("tidytext")
+install.packages("knitr")
+install.packages("plotly")
+devtools::install_github("ropenscilabs/icon") # to insert icons
+devtools::install_github("hadley/emo") # to insert emoji
+```
 
-To celebrate <!--html_preserve--><i class="fas  fa-birthday-cake " style="color:#88398A;"></i><!--/html_preserve--> our two years annive<!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve-->sary we will do something a little bit different! We would like to bring out the <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> diversity of our community and for this we would like you to share with us your favourite piece of R. This can be an <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve-->/<!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> Studio function or functionality; a way to build a model or to visualise your data that you use in your workflow or that simply you really like <!--html_preserve--><i class="fas  fa-heart " style="color:#88398A;"></i><!--/html_preserve-->; your favourite <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> moment or tips from our events! It can be really anything about <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> that you love and you can share with us in a few lines of code and present it at our event in 5 minutes. You can also add something about yourself if you’d like.
+``` r
+library(knitr)
+library(magick)
+```
 
-This will be a great opportunity to know more about how we all <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> and what we love about and use <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> for!
+    ## Linking to ImageMagick 6.9.9.39
+    ## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
+    ## Disabled features: fftw, ghostscript, x11
 
-Depending on the number of submission we will decide how many lightning talks to showcase on the night and in case someone won’t be able to present we will anyway create an `Rmarkdown` repository with all the R-Ladies Melbourne tips!
+``` r
+library(png)
+library(grid)
+library(emo)
+library(icon)
+library(twitteR)
+library(tidyverse)
+```
 
-### How to submit your piece of R: [submit here](https://goo.gl/forms/9aMM5V7aT5X4A41x1)
+    ## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
-Send us something that you love about <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> in one slide, one `R`/`Rmd` script or anything that works for you! Submit your [piece of <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> here](https://goo.gl/forms/9aMM5V7aT5X4A41x1).
+    ## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+    ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+    ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+    ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-On the night you will:
+    ## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter()   masks stats::filter()
+    ## ✖ dplyr::id()       masks twitteR::id()
+    ## ✖ dplyr::lag()      masks stats::lag()
+    ## ✖ dplyr::location() masks twitteR::location()
 
-1.  Share it in with everyone at our event in a five minutes presentation!
-2.  We will draft two lucky winners among the presenter to win an amazing price!!
-3.  We will combine all the R-Ladies tips that we received in one `Rmarkdown` `R-LadiesMelbourneRTips.Rmd` and make it available to everyone!
+Reference material for the following tutorial
+=============================================
 
-Panel discussion with past speakers
------------------------------------
+-   [Setting up the Twitter R package for text analytics](https://www.r-bloggers.com/setting-up-the-twitter-r-package-for-text-analytics/)
+-   [Obtaining and using access tokens](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html)
+-   [Text mining with R](https://www.tidytextmining.com/index.html)
 
-Following the lightning <!--html_preserve--><i class="fas  fa-bolt " style="color:#88398A;"></i><!--/html_preserve--> talks we will be entertained by a panel discussion featuring some of our past speakers and other <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> experts from industry and academia. The discussion will start around their <!--html_preserve--><i class="fab  fa-r-project " style="color:#88398A;"></i><!--/html_preserve--> experience, their work as well their experience in public speaking and in sharing their interests with the broader community. You will have the opportunity to ask any question you would like!
+-   **Refer to `Social_Media_Setup_APIs.Rmd` to setup your Twitter API and connect your R session with Twitter**
+
+Downloading tweets with `twitteR`
+=================================
+
+Once you have connected to twitter <!--html_preserve--><i class="fab  fa-twitter "></i><!--/html_preserve--> and accessed your API, you are ready to download tweets. Let's try to return the 3 most recent tweets that contain the \#useR2018 hashtag.
