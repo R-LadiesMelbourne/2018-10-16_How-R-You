@@ -1,13 +1,13 @@
 ---
-title: "How `r icon::fa_r_project(colour = '#88398A')` you? An evening of `r icon::fa_r_project(colour = '#88398A')`-tips, discussions and celebrations"
+title: "How R you? An evening of R-tips, discussions and celebrations"
 date: "18th October - Two years anniversary!"
 always_allow_html: yes
 output:
-  html_document:
-    theme: simplex
+  github_document:
     toc: yes
     toc_depth: 3
-  github_document:
+  html_document:
+    theme: cosmo
     toc: yes
     toc_depth: 3
 ---
@@ -33,16 +33,16 @@ grid.raster(img)
 
 ## How R you? - Lightning talks from the community
 
-To celebrate  `r icon::fa("birthday-cake",colour="#88398A")` our two years annive`r icon::fa_r_project(colour = '#88398A')`sary we will do something a little bit different! We would like to bring out the `r icon::fa_r_project(colour = '#88398A')` diversity of our community and for this we would like you to share with us your favourite piece of R. This can be an `r icon::fa_r_project(colour = '#88398A')`/`r icon::fa_r_project(colour = '#88398A')` Studio function or functionality; a way to build a model or to visualise your data that you use in your workflow or that simply you really like `r icon::fa("heart",colour="#88398A")`; your favourite `r icon::fa_r_project(colour = '#88398A')` moment or tips from our events! 
-It can be really anything about `r icon::fa_r_project(colour = '#88398A')` that you love and you can share with us in a few lines of code and present it at our event in 5 minutes. You can also add something about yourself if you’d like.
+To celebrate our two years anniveRsary we will do something a little bit different! We would like to bring out the R diversity of our community and for this we would like you to share with us your favourite piece of R. This can be an R/R Studio function or functionality; a way to build a model or to visualise your data that you use in your workflow or that simply you really like; your favourite R moment or tips from our events! 
+It can be really anything about R that you love and you can share with us in a few lines of code and present it at our event in 5 minutes. You can also add something about yourself if you’d like.
 
-This will be a great opportunity to know more about how we all `r icon::fa_r_project(colour = '#88398A')` and what we love about and use `r icon::fa_r_project(colour = '#88398A')` for!
+This will be a great opportunity to know more about how we all R and what we love about and use R for!
 
 Depending on the number of submission we will decide how many lightning talks to showcase on the night and in case someone won’t be able to present we will anyway create an `Rmarkdown` repository with all the R-Ladies Melbourne tips!
 
 ### How to submit your piece of R: [submit here](https://goo.gl/forms/9aMM5V7aT5X4A41x1)
 
-Send us something that you love about `r icon::fa_r_project(colour = '#88398A')` in one slide, one `R`/`Rmd` script or anything that works for you! Submit your [piece of `r icon::fa_r_project(colour = '#88398A')` here](https://goo.gl/forms/9aMM5V7aT5X4A41x1). 
+Send us something that you love about R in one slide, one `R`/`Rmd` script or anything that works for you! Submit your [piece of R here](https://goo.gl/forms/9aMM5V7aT5X4A41x1). 
 
 On the night you will:
 
@@ -52,6 +52,6 @@ On the night you will:
 
 ## Panel discussion with past speakers
 
-Following the lightning `r icon::fa("bolt",colour="#88398A")` talks we will be entertained by a panel discussion featuring some of our past speakers and other `r icon::fa_r_project(colour = '#88398A')` experts from industry and academia. The discussion will start around their `r icon::fa_r_project(colour = '#88398A')` experience, their work as well their experience in public speaking and in sharing their interests with the broader community. You will have the opportunity to ask any question you would like!
+Following the lightning talks we will be entertained by a panel discussion featuring some of our past speakers and other R experts from industry and academia. The discussion will start around their R experience, their work as well their experience in public speaking and in sharing their interests with the broader community. You will have the opportunity to ask any question you would like!
 
 
