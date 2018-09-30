@@ -1,0 +1,51 @@
+---
+title: "How R you? An evening of R-tips, discussions and celebrations"
+date: "18th October - Two years anniversary!"
+always_allow_html: yes
+output:
+  github_document:
+    toc: yes
+    toc_depth: 3
+  html_document:
+    theme: cosmo
+    toc: yes
+    toc_depth: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(magick)
+library(png)
+library(grid)
+library(emo)
+library(icon)
+```
+
+
+```{r echo=FALSE,message=FALSE,fig.width=2,fig.height=2,fig.align='center',cache=TRUE}
+library(png)
+library(grid)
+img <- readPNG("./Figures/logo.png")
+grid.raster(img)
+```
+
+## How R you? - Lightning talks and panel discussion 
+
+Have you ever had the thought: "I wonder how my friend is coding!" or "How would other people code this?" or "What's their favourite R tip?". Well, this is the time to share our coding thoughts and tips! To celebrate our two years anniveRsary we would like to bring out the R diversity of our community and for this we would like YOU TO SHARE WITH US YOUR FAVOURITE BITS OF R and we are organising a PANEL DISCUSSION with past speakers and other R experts from industry and academia!
+
+SUBMIT YOUR FAVOURITE BITS OF R HERE AND PRESENT IT ON THE NIGHT!
+
+1. SHARE WITH US HERE https://goo.gl/forms/Aw4REPkOCG7BLhv43 an R/R Studio function or functionality; a way to build a model or to visualise your data that you use in your workflow or that simply you really like; your favourite R moment or tips from our events! You can also add something about yourself and in which field ou use R for. The format can be one slide, one R/Rmd script or anything that works for you!
+
+2. PRESENT IT at our event in 5 minutes. This will be a great opportunity to share your R tips, ask for feedback to the audience and practice your public speaking in a friendly and non-judgemental environment! 
+
+3. WE WILL CREATE AN R-LADIES MELBOURNE TIPS REPOSITORY. Submit something even if you think you might not be free on the night. We'd still love to combine all the R-Ladies tips in one Rmarkdown and make it available to everyone! This will showcase the diversity of our community. Here is an example of how it will look like [piece of R here](https://goo.gl/forms/9aMM5V7aT5X4A41x1). Depending on the number of submissions we will restructure the repository into themes.
+
+4. WIN A FABULOUS PRIZE! We will drafts LUCKY WINNERS among the presenters to win an amazing prize (R earrings, bags and much more!)!!
+
+## Panel discussion with past speakers
+
+Following the lightning talks we will held a panel discussion featuring some of our past speakers and other R experts from industry and academia. The panel will be announced soon!
+The topics of the panel will be “the user experience of R language from various fields of proficiency” and “the impact of public speaking skills while presenting R work”. You will have the opportunity to ask any question you would like!
