@@ -5,7 +5,7 @@ How R you? - R-Ladies Melbourne code and tips!
 -   [Using `pheatmap` to visualise the structure of your data](#using-pheatmap-to-visualise-the-structure-of-your-data)
     -   [See the final result!](#see-the-final-result)
     -   [Useful links to know more about heatmaps in R](#useful-links-to-know-more-about-heatmaps-in-r)
--   [Violin plots with overlayed boxplots and coliur by class](#violin-plots-with-overlayed-boxplots-and-coliur-by-class)
+-   [Violin plots with overlayed boxplots and coloured by group](#violin-plots-with-overlayed-boxplots-and-coloured-by-group)
 
 <img src="How_R_You_R-LadiesMelbourne_code_and_tips_files/figure-markdown_github/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
@@ -240,8 +240,8 @@ Useful links to know more about heatmaps in R
 -   <http://www.sthda.com/english/articles/28-hierarchical-clustering-essentials/93-heatmap-static-and-interactive-absolute-guide/>
 -   <http://www.bioconductor.org/packages/release/bioc/vignettes/ComplexHeatmap/inst/doc/s4.heatmap_annotation.html>
 
-Violin plots with overlayed boxplots and coliur by class
-========================================================
+Violin plots with overlayed boxplots and coloured by group
+==========================================================
 
 **Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
 

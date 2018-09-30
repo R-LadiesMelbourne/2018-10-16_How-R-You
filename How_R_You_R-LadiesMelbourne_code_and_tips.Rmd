@@ -175,7 +175,7 @@ pheatmap(infos_wide[order(infos_wide$DiseaseType),-c(1,2,ncol(infos_wide))],
 * http://www.bioconductor.org/packages/release/bioc/vignettes/ComplexHeatmap/inst/doc/s4.heatmap_annotation.html
 
 
-# Violin plots with overlayed boxplots and coliur by class
+# Violin plots with overlayed boxplots and coloured by group
 
 **Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
 
