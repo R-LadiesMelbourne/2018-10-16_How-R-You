@@ -193,6 +193,11 @@ ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = e
 ```
 
 
+# Matching strings
+
+**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
+
+Find Saskia's fabulous slides about all the ways to match strings in R here  
 
 
 

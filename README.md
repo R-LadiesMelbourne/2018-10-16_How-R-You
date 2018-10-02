@@ -6,6 +6,7 @@ How R you? - R-Ladies Melbourne code and tips!
     -   [See the final result!](#see-the-final-result)
     -   [Useful links to know more about heatmaps in R](#useful-links-to-know-more-about-heatmaps-in-r)
 -   [Violin plots with overlayed boxplots and coloured by group](#violin-plots-with-overlayed-boxplots-and-coloured-by-group)
+-   [Matching strings](#matching-strings)
 
 <img src="How_R_You_R-LadiesMelbourne_code_and_tips_files/figure-markdown_github/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
@@ -31,14 +32,14 @@ In the example below I want to visualise the structure of a dataset constituted 
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
     ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
     ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
     ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -259,3 +260,10 @@ ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = e
 ```
 
 ![](How_R_You_R-LadiesMelbourne_code_and_tips_files/figure-markdown_github/unnamed-chunk-14-1.png)
+
+Matching strings
+================
+
+**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
+
+Find Saskia's fabulous slides about all the ways to match strings in R here

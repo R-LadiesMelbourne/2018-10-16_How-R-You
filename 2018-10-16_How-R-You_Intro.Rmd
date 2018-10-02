@@ -41,7 +41,7 @@ SUBMIT YOUR FAVOURITE BITS OF R HERE AND PRESENT IT ON THE NIGHT!
 
 2. PRESENT IT at our event in 5 minutes. This will be a great opportunity to share your R tips, ask for feedback to the audience and practice your public speaking in a friendly and non-judgemental environment! 
 
-3. WE WILL CREATE AN R-LADIES MELBOURNE TIPS REPOSITORY. Submit something even if you think you might not be free on the night. We'd still love to combine all the R-Ladies tips in one Rmarkdown and make it available to everyone! This will showcase the diversity of our community. Here is an example of how it will look like [piece of R here](https://goo.gl/forms/9aMM5V7aT5X4A41x1). Depending on the number of submissions we will restructure the repository into themes.
+3. WE WILL CREATE AN R-LADIES MELBOURNE TIPS REPOSITORY. Submit something even if you think you might not be free on the night. We'd still love to combine all the R-Ladies tips in one Rmarkdown and make it available to everyone! This will showcase the diversity of our community. Here is an example of how it will look like https://github.com/R-LadiesMelbourne/2018-10-16_How-R-You. Depending on the number of submissions we will restructure the repository into themes.
 
 4. WIN A FABULOUS PRIZE! We will drafts LUCKY WINNERS among the presenters to win an amazing prize (R earrings, bags and much more!)!!
 
