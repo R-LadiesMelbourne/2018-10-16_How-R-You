@@ -266,4 +266,4 @@ Matching strings
 
 **Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
 
-Find Saskia's fabulous slides about all the ways to match strings in R here
+Find Saskia's fabulous slides about all the ways to match strings in R [here](file:///Users/quaglieri.a/RLadiesMelbourne/2018-10-16_How-R-You/How_R_You_R-LadiesMelbourne_code_and_tips_data/RLadies.html#1).
