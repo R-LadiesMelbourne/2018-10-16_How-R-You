@@ -3,11 +3,11 @@ title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "01/10/2018"
 always_allow_html: yes
 output:
-  github_document:
-    toc: yes
-    toc_depth: 3
   html_document:
     theme: cosmo
+    toc: yes
+    toc_depth: 3
+  github_document:
     toc: yes
     toc_depth: 3
 ---
@@ -197,7 +197,7 @@ ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = e
 
 **Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
 
-Find Saskia's fabulous slides about all the ways to match strings in R here  
+Find Saskia's fabulous slides about all the ways to match strings in R [here](file:///Users/quaglieri.a/RLadiesMelbourne/2018-10-16_How-R-You/How_R_You_R-LadiesMelbourne_code_and_tips_data/RLadies.html#1). 
 
 
 
