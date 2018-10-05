@@ -32,14 +32,14 @@ In the example below I want to visualise the structure of a dataset constituted 
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
     ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
     ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
     ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -266,4 +266,4 @@ Matching strings
 
 **Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
 
-Find Saskia's fabulous slides about all the ways to match strings in R [here](file:///Users/quaglieri.a/RLadiesMelbourne/2018-10-16_How-R-You/How_R_You_R-LadiesMelbourne_code_and_tips_data/RLadies.html#1).
+Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1).
