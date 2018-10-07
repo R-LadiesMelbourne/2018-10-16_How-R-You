@@ -3,11 +3,11 @@ title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "01/10/2018"
 always_allow_html: yes
 output:
-  github_document:
-    toc: yes
-    toc_depth: 3
   html_document:
     theme: cosmo
+    toc: yes
+    toc_depth: 3
+  github_document:
     toc: yes
     toc_depth: 3
 ---
@@ -64,7 +64,7 @@ grid.raster(img)
 
 # DT package for interactive tables
 
-```{r}
+```{r }
 library(DT)
 library(reshape2) # to get the "tips" dataset
 
