@@ -31,6 +31,56 @@ img <- readPNG("./Figures/logo.png")
 grid.raster(img)
 ```
 
+# Violin plots with overlayed boxplots and coloured by group
+
+**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
+
+Whenever I have to display to compare continuous variables this has become my favourite way to go! *Violin plot* + *boxplot* allows me to see both the quantiles and the overall density distribution that if can often be missed with only boxplots.
+
+```{r}
+library(ggplot2)
+
+data <- data.frame(Gene = rep(c("Gene1","Gene2","Gene3","Gene4"),each=46),
+                   Counts = log2(rbinom(n = 46*4,size = 1000,prob = 0.3)),
+                   CBF = sample(x = c("A","B"),size = 46*4,replace=TRUE))
+
+dodge <- position_dodge(width = 1)
+ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = element_text(angle = 0)) + geom_violin(trim=FALSE,position = dodge) + geom_boxplot(width=.1,position = dodge,show.legend = FALSE) +  labs(y="log2Counts") + facet_wrap(~Gene,scales="free_x")
+```
+
+
+# Matching strings
+
+**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
+
+Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1). 
+
+![](How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png)
+
+# DT package for interactive tables
+
+```{r}
+library(DT)
+library(reshape2) # to get the "tips" dataset
+
+data("tips")
+
+datatable(tips, filter = "top", options = list(pageLength = 8))  %>%   ## Bold some numbers:
+  formatStyle('total_bill', 
+    fontWeight = styleInterval(18, c('normal', 'bold'))) %>%  ## show colour bar
+  formatStyle('tip', 
+    background = styleColorBar(tips$tip, 'mediumpurple'),
+    backgroundSize = '100% 95%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'centre') %>%   ## transform values
+  formatStyle('sex', 
+    transform = 'rotateX(-45deg) rotateY(-30deg) rotateZ(-50deg)',
+    backgroundColor = styleEqual(unique(tips$sex), c('lightblue', 'lightseagreen'))) %>%  ## colour value/background
+  formatStyle('size', 
+    color = styleInterval(c(2, 4), c('blue', 'black', 'red')), 
+    backgroundColor = styleInterval(c(2, 4), c('white', 'gray', 'gray50')))
+```
+
 
 
 # Using `pheatmap` to visualise the structure of your data 
@@ -175,31 +225,12 @@ pheatmap(infos_wide[order(infos_wide$DiseaseType),-c(1,2,ncol(infos_wide))],
 * http://www.bioconductor.org/packages/release/bioc/vignettes/ComplexHeatmap/inst/doc/s4.heatmap_annotation.html
 
 
-# Violin plots with overlayed boxplots and coloured by group
 
-**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
-
-Whenever I have to display to compare continuous variables this has become my favourite way to go! *Violin plot* + *boxplot* allows me to see both the quantiles and the overall density distribution that if can often be missed with only boxplots.
+# Session Infos
 
 ```{r}
-library(ggplot2)
-
-data <- data.frame(Gene = rep(c("Gene1","Gene2","Gene3","Gene4"),each=46),
-                   Counts = log2(rbinom(n = 46*4,size = 1000,prob = 0.3)),
-                   CBF = sample(x = c("A","B"),size = 46*4,replace=TRUE))
-
-dodge <- position_dodge(width = 1)
-ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = element_text(angle = 0)) + geom_violin(trim=FALSE,position = dodge) + geom_boxplot(width=.1,position = dodge,show.legend = FALSE) +  labs(y="log2Counts") + facet_wrap(~Gene,scales="free_x")
+sessionInfo()
 ```
-
-
-# Matching strings
-
-**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
-
-Find Saskia's fabulous slides about all the ways to match strings in R [here](https://github.com/R-LadiesMelbourne/2018-10-16_How-R-You/tree/master/How_R_You_R-LadiesMelbourne_code_and_tips_data/RLadies.html). 
-
-
 
 
 
