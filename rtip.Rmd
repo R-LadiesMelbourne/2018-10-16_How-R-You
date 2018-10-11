@@ -1,0 +1,20 @@
+---
+title: 'R-Ladies Melbourne: How #R you? 2018'
+author: "Emi Tanaka"
+date: "09/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+I'm not in Melbourne but I could not help entering it 😅
+
+My tip is thow to get all the functions within a package. Below you can find all the functions in `dplyr` (minus the internal hidden ones).
+There are in total `r length(ls("package:dplyr"))` functions in `dplyr`. 
+```{r, message=F, warning=F}
+library(dplyr)
+ls("package:dplyr")
+```

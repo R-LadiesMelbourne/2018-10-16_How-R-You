@@ -4,3 +4,16 @@ png
 emo
 icon
 ggplot2
+DT
+reshape2
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+readxl
+pheatmap
+bindrcpp
