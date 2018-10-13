@@ -15,7 +15,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      prompt = TRUE,
                       message=FALSE,
                       warning=FALSE,
                       fig.width = 6,
@@ -108,20 +107,26 @@ library(datasets.load)
 library(dplyr)
 library(ggplot2)
 
-ChickWeight$Diet <- factor(ChickWeight$Diet)
+
+kable(head(ChickWeight))
+
+# Let's make diet a factor
+ChickWeight$Diet <- factor(ChickWeight$Diet,levels=c(1,2,3,4),labels = c("Diet1","Diet2","Diet3","Diet4"))
 ```
 
-* Default: alphabetical ordering
+* Default factor ordering: alphabetical ordering
 
 ```{r}
-ChickWeight %>% filter(Time %in% c(8,10)) %>%
+table(ChickWeight$Diet)
+
+ChickWeight %>% 
 ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
 ```
 
-* `forcats::fct_relevel`
+* `forcats::fct_relevel`: reorder manually
 
 ```{r}
-ChickWeight %>% filter(Time %in% c(8,10)) %>%
+ChickWeight %>% 
   mutate(Diet = fct_relevel(Diet,"Diet2","Diet3","Diet1","Diet4")) %>%
 ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
 ```
@@ -129,6 +134,7 @@ ggplot(aes(x=Diet,y=weight)) + geom_boxplot()
 * `forcats::fct_infreq`: reorder by factor frequency
 
 ```{r}
+# let's sample out some rows
 sample_chick <- ChickWeight[sample(nrow(ChickWeight),size=100),]
 
 table(sample_chick$Diet)
@@ -136,6 +142,8 @@ table(sample_chick$Diet)
 sample_chick %>% 
   ggplot(aes(x=Diet)) + geom_bar() 
 
+
+table(fct_infreq(sample_chick$Diet))
 sample_chick %>% 
   mutate(Diet = fct_infreq(Diet)) %>%
 ggplot(aes(x=Diet)) + geom_bar() 
@@ -146,7 +154,7 @@ ggplot(aes(x=Diet)) + geom_bar()
 
 ```{r}
 # chickwts	Chicken Weights by Feed Type
-head(kable(chickwts))
+kable(head(chickwts))
 class(chickwts$feed)
 
 chickwts %>% 
