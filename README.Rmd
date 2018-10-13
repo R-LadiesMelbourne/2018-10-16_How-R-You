@@ -410,9 +410,85 @@ library(dplyr)
 ls("package:dplyr")
 ```
 
+***
+
+# **`mutate_at()` and `summarise_at()`**
+
+**Author**: Lucy Liu
+
+A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
+
+## **Mutate**
+
+The well known `mutate()` lets you do something like this:
+
+```{r, message=FALSE, warning=FALSE}
+# load package
+library(tidyverse)
+```
+
+```{r}
+iris %>%
+  mutate(newcol = Sepal.Length * 10) %>%
+  head()
+```
+
+`mutate_at()` is used to perform a function on several columns at once. The syntax goes like this:
+
+* Tell it which columns you want to 'transform'. You can use `vars()` to do this. `vars()` understands the same specifications as `select()` e.g. `-c(col)`, `starts_with()`, `contains()`.
+* Tell it the function you want to perform.
+
+When you only want to perform 1 function, you can get it to just replace the old columns:
+
+```{r}
+iris %>%
+  mutate_at(vars(starts_with("Petal")), log) %>%
+  head()
+```
 
 
-# Session Infos
+Here the columns Petal.Length and Petal.Width are now logs of the old columns.
+
+If instead you wanted to add new columns to the end, use `funs()`:
+
+```{r}
+iris %>%
+  mutate_at(vars(starts_with("Petal")), 
+            funs(log = log(.))) %>%
+  head()
+```
+
+Note that we now need to use the `.` notation. This just means the data in the column selected.
+
+You can also perform several functions:
+
+```{r}
+iris %>%
+  mutate_at(vars("Petal.Width"), funs(
+    norm = ./mean(.),
+    log = log(.)
+  )) %>%
+  head()
+```
+
+## Summarise
+
+`summarise_at()` works similarly:
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarise_at(vars(starts_with("Petal")), 
+               funs(mean = mean(.),
+                    median = median(.),
+                    sd = sd(.)))
+```
+
+You select columns using `vars()` and use `funs()` to tell it what function you want to perform.
+
+***
+
+# **Session Infos**
 
 ```{r}
 sessionInfo()
