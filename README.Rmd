@@ -440,10 +440,10 @@ ggplot(AvsB_results, aes(x = log2FoldChange,
 
 Viola! Enjoy your volcano plot (and remember, there are lots of graphical modifiers you can use to visualise data using them, as long as your methods are logical and reasonable)! 
 
-## **Development notes**  
+## Development notes  
 **Chuanxin Liu** devised the elegant strategy for labelling all signal types as 'up', 'ns' or 'down' and the code for the labelling of specific signal data points.
 
-## **Other resources**  
+## Other resources  
 http://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
 http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software
