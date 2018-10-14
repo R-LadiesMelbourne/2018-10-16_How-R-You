@@ -30,7 +30,7 @@ library(knitr)
 ```
 
 
-```{r echo=FALSE,message=FALSE,fig.width=2,fig.height=2,fig.align='center',cache=TRUE}
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='left',cache=TRUE}
 library(png)
 library(grid)
 img <- readPNG("./Figures/logo.png")
@@ -418,7 +418,7 @@ ls("package:dplyr")
 
 A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
 
-## **Mutate**
+## Mutate
 
 The well known `mutate()` lets you do something like this:
 
