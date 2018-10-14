@@ -1,6 +1,6 @@
 ---
 title: "How R you? - R-Ladies Melbourne code and tips!"
-date: "01/10/2018"
+date: "17/10/2018"
 always_allow_html: yes
 output:
   html_document:
@@ -73,6 +73,8 @@ grid.raster(img)
 
 # **DT package for interactive tables**
 
+**Authors**: [Sepideh Foroutan](https://twitter.com/S_Foroutan)
+
 ```{r }
 library(DT)
 library(reshape2) # to get the "tips" dataset
@@ -99,7 +101,8 @@ datatable(tips, filter = "top", options = list(pageLength = 8))  %>%   ## Bold s
 
 # **`library(forcats)`: the incredible things you can do with your `R` factors!**
 
-**Author**: Anna Quaglieri
+**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
+
 
 ```{r}
 library(forcats)
@@ -223,6 +226,8 @@ grid.raster(img)
 ***
 
 # **Data visualisation via volcano plots**
+
+**Author**: [Erika Duan](https://github.com/erikaduan)
 
 As a wet-lab immunologist, most of my job involves trying to **find** and then **illustrate** meaningful patterns from large biological datasets.  
 
@@ -395,6 +400,8 @@ http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change
 
 # **Where to get help with your `R` question?**
 
+**Author**: [Maëlle Salmon](https://masalmon.eu/)
+
 "Imagine you have an `R` question..." Check out Maëlle super comprehensive blog post [Where to get help with your `R` question?](https://masalmon.eu/2018/07/22/wheretogethelp/) about how to make your search the most efficient and targeted possible!  
 
 ***
@@ -414,7 +421,7 @@ ls("package:dplyr")
 
 # **`mutate_at()` and `summarise_at()`**
 
-**Author**: Lucy Liu
+**Author**: [Lucy Liu](https://twitter.com/lucyleeow)
 
 A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
 
