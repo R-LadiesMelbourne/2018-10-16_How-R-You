@@ -17,3 +17,5 @@ forcats
 readxl
 pheatmap
 bindrcpp
+knitr
+ggrepel
