@@ -19,3 +19,4 @@ pheatmap
 bindrcpp
 knitr
 datasets.load
+ggrepel

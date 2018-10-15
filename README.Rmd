@@ -6,10 +6,10 @@ output:
   html_document:
     theme: cosmo
     toc: yes
-    toc_depth: 3
+    toc_depth: 2
   github_document:
     toc: yes
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 
@@ -17,8 +17,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE,
                       message=FALSE,
                       warning=FALSE,
-                      fig.width = 6,
-                      fig.height = 6,
+                      fig.width = 5,
+                      fig.height = 5,
                       fig.align = 'center')
 
 library(magick)
@@ -37,7 +37,21 @@ img <- readPNG("./Figures/logo.png")
 grid.raster(img)
 ```
 
-# **Violin plots with overlayed boxplots and coloured by group**
+# **Visualisation**
+
+## Having fun with `base::plot()`!
+
+**Author**: Soroor Zadeh
+
+```{r}
+par(bg="black")
+plot( (-2)^as.complex( seq(0, 7, 0.03) ), pch=21, bg=c( 2,3), xlab="", ylab="", xaxt="n", yaxt="n")
+text(-30, 40, "Happy Anniversary! \n R-Ladies Melbourne", cex=2,col="#88398A")
+```
+
+***
+
+## Violin plots with overlayed boxplots and coloured by group: `position_dodge()`
 
 **Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
 
@@ -56,22 +70,7 @@ ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = e
 
 ***
 
-# **Matching strings**
-
-**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
-
-Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1). 
-
-```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='center',cache=TRUE}
-library(png)
-library(grid)
-img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png")
-grid.raster(img)
-```
-
-***
-
-# **DT package for interactive tables**
+## `DT` package for interactive tables
 
 **Authors**: [Sepideh Foroutan](https://twitter.com/S_Foroutan)
 
@@ -99,80 +98,7 @@ datatable(tips, filter = "top", options = list(pageLength = 8))  %>%   ## Bold s
 
 ***
 
-# **`library(forcats)`: the incredible things you can do with your `R` factors!**
-
-**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
-
-
-```{r}
-library(forcats)
-library(datasets.load)
-library(dplyr)
-library(ggplot2)
-
-
-kable(head(ChickWeight))
-
-# Let's make diet a factor
-ChickWeight$Diet <- factor(ChickWeight$Diet,levels=c(1,2,3,4),labels = c("Diet1","Diet2","Diet3","Diet4"))
-```
-
-* Default factor ordering: alphabetical ordering
-
-```{r}
-table(ChickWeight$Diet)
-
-ChickWeight %>% 
-ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
-```
-
-* `forcats::fct_relevel`: reorder manually
-
-```{r}
-ChickWeight %>% 
-  mutate(Diet = fct_relevel(Diet,"Diet2","Diet3","Diet1","Diet4")) %>%
-ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
-```
-
-* `forcats::fct_infreq`: reorder by factor frequency
-
-```{r}
-# let's sample out some rows
-sample_chick <- ChickWeight[sample(nrow(ChickWeight),size=100),]
-
-table(sample_chick$Diet)
-
-sample_chick %>% 
-  ggplot(aes(x=Diet)) + geom_bar() 
-
-
-table(fct_infreq(sample_chick$Diet))
-sample_chick %>% 
-  mutate(Diet = fct_infreq(Diet)) %>%
-ggplot(aes(x=Diet)) + geom_bar() 
-```
-
-
-* `forcats::fct_reorder`: reorder by values of another variable
-
-```{r}
-# chickwts	Chicken Weights by Feed Type
-kable(head(chickwts))
-class(chickwts$feed)
-
-chickwts %>% 
-  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
-```
-
-```{r}
-chickwts %>% 
-  mutate(feed = fct_reorder(feed,weight)) %>%
-  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
-```
-
-***
-
-# **Different ways of plotting your data with `ggplot` using `geom_histogram` and `geom_density_ridges`**
+## Different ways of plotting your data with `ggplot()` using `geom_histogram()` and `geom_density_ridges()`
 
 **Authors**: Marie Trussart
 
@@ -225,7 +151,7 @@ grid.raster(img)
 
 ***
 
-# **Data visualisation via volcano plots**
+## Data visualisation via volcano plots
 
 **Author**: [Erika Duan](https://github.com/erikaduan)
 
@@ -235,7 +161,7 @@ We obtain **a lot** of data from RNA sequencing experiments. These are experimen
 
 We often analyse datasets with changes across >10,000 signals between >=2 different objects. A [volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_(statistics)) is one way we visualise all statistically significant versus non-significant differences in one graph.  
 
-## A typical data analysis pipeline
+### A typical data analysis pipeline
 
 1. A large matrix is obtained, containing the number of signals 'counted' per signal type per object. Each row contains a unique signal ID (i.e. in my case a unique gene ID) and each column contains all the signal counts for one single object. *The researcher also has additional information about each object (i.e. object classification categories like object type, timepoint, batch etc.). This is very important for downstream RNAseq analysis, but not required for this analysis.* 
 
@@ -251,7 +177,7 @@ Here, a **volcano plot** is used to depict:
 * between two objects tested.  
 
 
-## Drawing volcano plots with `ggplot2`
+### Drawing volcano plots with `ggplot2`
 
 A **results output file** can be created in `DESeq2` i.e. using `results(dds, contrast=c("Sample.type", "A", "B"))` and converted into a dataframe. 
 
@@ -386,10 +312,11 @@ ggplot(AvsB_results, aes(x = log2FoldChange,
 
 Viola! Enjoy your volcano plot (and remember, there are lots of graphical modifiers you can use to visualise data using them, as long as your methods are logical and reasonable)! 
 
-## Development notes  
+### Development notes  
 **Chuanxin Liu** devised the elegant strategy for labelling all signal types as 'up', 'ns' or 'down' and the code for the labelling of specific signal data points.
 
-## Other resources  
+### Other resources  
+
 http://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
 
 http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software
@@ -398,28 +325,98 @@ http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change
 
 ***
 
-# **Where to get help with your `R` question?**
+# **Dealing with strings and factors**
 
-**Author**: [Maëlle Salmon](https://masalmon.eu/)
+## Matching strings
 
-"Imagine you have an `R` question..." Check out Maëlle super comprehensive blog post [Where to get help with your `R` question?](https://masalmon.eu/2018/07/22/wheretogethelp/) about how to make your search the most efficient and targeted possible!  
+**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
 
-***
+Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1). 
 
-# **How to get all the functions within a package**
-
-**Author**: [Emi Tanaka](http://github.com/emitanaka)
-
-Below you can find all the functions in `dplyr` (minus the internal hidden ones). There are in total `r length(ls("package:dplyr"))` functions in `dplyr`. 
-
-```{r, message=F, warning=F}
-library(dplyr)
-ls("package:dplyr")
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='center',cache=TRUE}
+library(png)
+library(grid)
+img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png")
+grid.raster(img)
 ```
 
 ***
 
-# **`mutate_at()` and `summarise_at()`**
+## `library(forcats)`: the incredible things you can do with your `R` factors!
+
+**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
+
+
+```{r}
+library(forcats)
+library(datasets.load)
+library(dplyr)
+library(ggplot2)
+
+
+kable(head(ChickWeight))
+
+# Let's make diet a factor
+ChickWeight$Diet <- factor(ChickWeight$Diet,levels=c(1,2,3,4),labels = c("Diet1","Diet2","Diet3","Diet4"))
+```
+
+* Default factor ordering: alphabetical ordering
+
+```{r}
+table(ChickWeight$Diet)
+
+ChickWeight %>% 
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
+```
+
+* `forcats::fct_relevel`: reorder manually
+
+```{r}
+ChickWeight %>% 
+  mutate(Diet = fct_relevel(Diet,"Diet2","Diet3","Diet1","Diet4")) %>%
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
+```
+
+* `forcats::fct_infreq`: reorder by factor frequency
+
+```{r}
+# let's sample out some rows
+sample_chick <- ChickWeight[sample(nrow(ChickWeight),size=100),]
+
+table(sample_chick$Diet)
+
+sample_chick %>% 
+  ggplot(aes(x=Diet)) + geom_bar() 
+
+
+table(fct_infreq(sample_chick$Diet))
+sample_chick %>% 
+  mutate(Diet = fct_infreq(Diet)) %>%
+ggplot(aes(x=Diet)) + geom_bar() 
+```
+
+
+* `forcats::fct_reorder`: reorder by values of another variable
+
+```{r}
+# chickwts	Chicken Weights by Feed Type
+kable(head(chickwts))
+class(chickwts$feed)
+
+chickwts %>% 
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
+```
+
+```{r}
+chickwts %>% 
+  mutate(feed = fct_reorder(feed,weight)) %>%
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
+```
+
+
+***
+
+# **Data manipulation with `mutate_at()` and `summarise_at()`**
 
 **Author**: [Lucy Liu](https://twitter.com/lucyleeow)
 
@@ -495,7 +492,30 @@ You select columns using `vars()` and use `funs()` to tell it what function you 
 
 ***
 
-# **Session Infos**
+
+# **Where to get help with your `R` question?**
+
+**Author**: [Maëlle Salmon](https://masalmon.eu/)
+
+"Imagine you have an `R` question..." Check out Maëlle super comprehensive blog post [Where to get help with your `R` question?](https://masalmon.eu/2018/07/22/wheretogethelp/) about how to make your search the most efficient and targeted possible!  
+
+***
+
+# **How to get all the functions within a package**
+
+**Author**: [Emi Tanaka](http://github.com/emitanaka)
+
+Below you can find all the functions in `dplyr` (minus the internal hidden ones). There are in total `r length(ls("package:dplyr"))` functions in `dplyr`. 
+
+```{r, message=F, warning=F}
+library(dplyr)
+ls("package:dplyr")
+```
+
+***
+
+
+# **`sessionInfo()`**
 
 ```{r}
 sessionInfo()
