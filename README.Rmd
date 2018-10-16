@@ -5,7 +5,7 @@ always_allow_html: yes
 output:
   html_document:
     includes:
-      after_body: header.html
+      after_body: [header.html,footer.html]
     theme: cosmo
     toc: yes
     toc_depth: 2
