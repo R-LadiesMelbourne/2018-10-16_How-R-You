@@ -3,11 +3,11 @@ title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "17/10/2018"
 always_allow_html: yes
 output:
-  html_document:
-    theme: cosmo
+  github_document:
     toc: yes
     toc_depth: 2
-  github_document:
+  html_document:
+    theme: cosmo
     toc: yes
     toc_depth: 2
 ---
@@ -45,10 +45,12 @@ Find all the code and data also in our GitHub page https://github.com/R-LadiesMe
 
 Have fun `r emo::ji("wink")`!!
 
+<br>
 
 # **Visualisation**
 
 ## Having fun with `base::plot()`!
+
 
 **Author**: Soroor Zadeh
 
@@ -58,7 +60,11 @@ plot( (-2)^as.complex( seq(0, 7, 0.03) ), pch=21, bg=c( 2,3), xlab="", ylab="", 
 text(-30, 40, "Happy Anniversary! \n R-Ladies Melbourne", cex=2,col="#88398A")
 ```
 
+<br>
+
 ***
+
+<br>
 
 ## Violin plots with overlayed boxplots and coloured by group: `position_dodge()`
 
@@ -77,7 +83,11 @@ dodge <- position_dodge(width = 1)
 ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = element_text(angle = 0)) + geom_violin(trim=FALSE,position = dodge) + geom_boxplot(width=.1,position = dodge,show.legend = FALSE) +  labs(y="log2Counts") + facet_wrap(~Gene,scales="free_x")
 ```
 
+<br>
+
 ***
+
+<br>
 
 ## `DT` package for interactive tables
 
@@ -105,7 +115,11 @@ datatable(tips, filter = "top", options = list(pageLength = 8))  %>%   ## Bold s
     backgroundColor = styleInterval(c(2, 4), c('white', 'gray', 'gray50')))
 ```
 
+<br>
+
 ***
+
+<br>
 
 ## Different ways of plotting your data with `ggplot()` using `geom_histogram()` and `geom_density_ridges()`
 
@@ -115,6 +129,10 @@ I used here ggd, which is a data frame extracted from clustering and expression 
 
 `ggd <- melt(data.frame(cluster = cell_clustering, expr),id.vars = "cluster", value.name = "expression")`
 
+
+Example of the data:
+
+[](How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png)
 
 ```{r eval=FALSE}
 ### Density distributions
@@ -158,7 +176,11 @@ img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_F
 grid.raster(img)
 ```
 
+<br>
+
 ***
+
+<br>
 
 ## Data visualisation via volcano plots
 
@@ -332,16 +354,111 @@ http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-
 
 http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change-x-and-y-axis-limits
 
+<br>
 
 ***
+
+<br>
 
 ## Create multiple plots using for loop / Code Snippets
 
 **Author**: Ivy Lin
 
-Have a look at Ivy's R tip published on RPubs http://rpubs.com/IvyLin/R-tips. 
+Have a look at Ivy's R tip published on RPubs http://rpubs.com/IvyLin/R-tips or got through her code below. 
+
+### Tip 1 : Create multiple plots using for loop
+
+Demo dataset : Telcom Customer Churn data, source: <https://www.kaggle.com/blastchar/telco-customer-churn>
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+When we want to visually explore a dataset with many variables...   
+Is there any efficient way to create multiple plots at the same time? 
+
+```{r}
+#import data (default stringAsFactor = TRUE )
+customer <- read.csv("How_R_You_R-LadiesMelbourne_code_and_tips_data/WA_Fn-UseC_-Telco-Customer-Churn.csv",stringsAsFactors = T)
+str(customer)
+```
+
+
+* **Data wrangling**
+
+```{r }
+# Make ID back to correct format
+customer$customerID <- as.character(customer$customerID)
+
+#reorder
+customer <- customer[c(1,21,2:20)]
+
+# scan missing value
+colSums(is.na(customer))
+
+#observation with missing values 
+missing <- filter(customer, is.na(customer$TotalCharges) == TRUE )
+
+# since TotalCharges is roughly equals to tenure * monthly charges, I replace the missing value accordingly.
+customer_m <- customer %>% mutate(TotalCharges = ifelse(is.na(customer$TotalCharges), customer$MonthlyCharges*customer$tenure, TotalCharges) )
+```
+
+
+* **Data exploratory on different variables**
+
+Tips: use for-loop to create multiple plots in just 1 command.   
+Requirement: you'll need to have varibles in same data type. 
+
+```{r}
+variables <- list(  'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService','OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport','StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling','PaymentMethod' )
+
+for (i in variables){
+ plot <-  ggplot(customer_m, aes_string(x = i, fill = as.factor(customer_m$Churn)))+ 
+    geom_bar( position = "stack")+ scale_fill_discrete(name = "churn")
+ print(plot)
+}
+```
+
+* Pros : Efficient way to do exploratory plot. 
+* Cons : Cannot adjust individual plot. 
+
+
+### Tip 2: Code Snippet: 
+
+Just type : snippet plus function name e.g. `snippet fun` , `snippet apply`.   
+Or View the build-in snippets from Tool > Global options > Code > Snippet, you can create your own snippet. 
+
+
+```{r echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/Code_snippet.png")
+grid.raster(img)
+```
+
+```{}
+# example for snippet fun
+
+name <- function(variables) {
+  
+}
+
+# example for snippet apply
+apply(array, margin, ...)
+```
+
+* Detailed document about Code Snippets:<https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets>
+* RStudio Tips and Tricks by Sean Lopp  <https://www.youtube.com/watch?v=kuSQgswZdr8>
+
+
+<br>
 
 ***
+
+<br>
 
 # **Dealing with strings and factors**
 
@@ -358,81 +475,93 @@ img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png")
 grid.raster(img)
 ```
 
+<br>
+
 ***
+
+<br>
 
 ## `library(forcats)`: the incredible things you can do with your `R` factors!
 
 **Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
 
 
-```{r}
+```{r message=FALSE}
 library(forcats)
 library(datasets.load)
 library(dplyr)
 library(ggplot2)
+library(DT)
+library(cowplot)
+```
 
-
-kable(head(ChickWeight))
+```{r}
+datatable((ChickWeight))
 
 # Let's make diet a factor
 ChickWeight$Diet <- factor(ChickWeight$Diet,levels=c(1,2,3,4),labels = c("Diet1","Diet2","Diet3","Diet4"))
 ```
 
-* Default factor ordering: alphabetical ordering
-
-```{r}
-table(ChickWeight$Diet)
-
-ChickWeight %>% 
-ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
-```
-
 * `forcats::fct_relevel`: reorder manually
 
-```{r}
-ChickWeight %>% 
+The default factor ordering is by alphabetical ordering.
+
+```{r fig.width=8,fig.height=4}
+table(ChickWeight$Diet)
+
+p1=ChickWeight %>% 
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() + ggtitle("Initial")+ theme_bw()
+
+p2=ChickWeight %>% 
   mutate(Diet = fct_relevel(Diet,"Diet2","Diet3","Diet1","Diet4")) %>%
-ggplot(aes(x=Diet,y=weight)) + geom_boxplot() 
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() +  ggtitle("After fct_relevel(Diet)") + theme_bw()
+
+plot_grid(p1,p2)
 ```
 
 * `forcats::fct_infreq`: reorder by factor frequency
 
-```{r}
+```{r fig.width=8,fig.height=4}
 # let's sample out some rows
 sample_chick <- ChickWeight[sample(nrow(ChickWeight),size=100),]
 
 table(sample_chick$Diet)
 
-sample_chick %>% 
-  ggplot(aes(x=Diet)) + geom_bar() 
+p1=sample_chick %>% 
+  ggplot(aes(x=Diet)) + geom_bar() + ggtitle("Initial")+ theme_bw()
 
 
 table(fct_infreq(sample_chick$Diet))
-sample_chick %>% 
-  mutate(Diet = fct_infreq(Diet)) %>%
-ggplot(aes(x=Diet)) + geom_bar() 
-```
 
+p2=sample_chick %>% 
+  mutate(Diet = fct_infreq(Diet)) %>%
+ggplot(aes(x=Diet)) + geom_bar() + ggtitle("After fct_infreq(Diet)") + theme_bw()
+
+plot_grid(p1,p2)
+```
 
 * `forcats::fct_reorder`: reorder by values of another variable
 
-```{r}
+```{r fig.width=8,fig.height=4}
 # chickwts	Chicken Weights by Feed Type
-kable(head(chickwts))
+datatable(chickwts)
 class(chickwts$feed)
 
-chickwts %>% 
-  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
-```
+p1=chickwts %>% 
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() + ggtitle("Initial")+ theme_bw() + theme(legend.position = "bottom")
 
-```{r}
-chickwts %>% 
+p2=chickwts %>% 
   mutate(feed = fct_reorder(feed,weight)) %>%
-  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() 
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() + ggtitle("After fct_reorder(feed,weight)") + theme_bw()+ theme(legend.position = "bottom")
+
+plot_grid(p1,p2)
 ```
 
+<br>
 
 ***
+
+<br>
 
 # **Data manipulation with `mutate_at()` and `summarise_at()`**
 
@@ -508,8 +637,11 @@ iris %>%
 
 You select columns using `vars()` and use `funs()` to tell it what function you want to perform.
 
+<br>
+
 ***
 
+<br>
 
 # **Where to get help with your `R` question?**
 
@@ -517,7 +649,11 @@ You select columns using `vars()` and use `funs()` to tell it what function you 
 
 "Imagine you have an `R` question..." Check out Maëlle super comprehensive blog post [Where to get help with your `R` question?](https://masalmon.eu/2018/07/22/wheretogethelp/) about how to make your search the most efficient and targeted possible!  
 
+<br>
+
 ***
+
+<br>
 
 # **How to get all the functions within a package**
 
@@ -530,8 +666,11 @@ library(dplyr)
 ls("package:dplyr")
 ```
 
+<br>
+
 ***
 
+<br>
 
 # **`sessionInfo()`**
 
