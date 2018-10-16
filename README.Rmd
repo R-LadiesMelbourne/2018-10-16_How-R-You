@@ -3,11 +3,11 @@ title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "17/10/2018"
 always_allow_html: yes
 output:
-  github_document:
-    toc: yes
-    toc_depth: 2
   html_document:
     theme: cosmo
+    toc: yes
+    toc_depth: 2
+  github_document:
     toc: yes
     toc_depth: 2
 ---
@@ -36,6 +36,13 @@ library(grid)
 img <- readPNG("./Figures/logo.png")
 grid.raster(img)
 ```
+
+# **R-Ladies Melbourne second anniversary**
+
+To celebrate our second birthday `r emo::ji("birthday")` we wanted to bring out the `r icon::fa_r_project(colour="blue")` diversity of our community. That's why we asked to all our members and all the `r icon::fa_r_project(colour="purple")`-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. Below are all the beautiful tips that we managed to collect!
+
+Have fun `r emo::ji("wink")`!!
+
 
 # **Visualisation**
 
@@ -322,6 +329,15 @@ http://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2
 http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software
 
 http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change-x-and-y-axis-limits
+
+
+***
+
+## Create multiple plots using for loop / Code Snippets
+
+**Author**: Ivy Lin
+
+Have a look at Ivy's R tip published on RPubs http://rpubs.com/IvyLin/R-tips. 
 
 ***
 

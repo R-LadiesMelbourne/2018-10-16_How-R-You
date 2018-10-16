@@ -2,12 +2,14 @@ How R you? - R-Ladies Melbourne code and tips!
 ================
 17/10/2018
 
+-   [**R-Ladies Melbourne second anniversary**](#r-ladies-melbourne-second-anniversary)
 -   [**Visualisation**](#visualisation)
     -   [Having fun with `base::plot()`!](#having-fun-with-baseplot)
     -   [Violin plots with overlayed boxplots and coloured by group: `position_dodge()`](#violin-plots-with-overlayed-boxplots-and-coloured-by-group-position_dodge)
     -   [`DT` package for interactive tables](#dt-package-for-interactive-tables)
     -   [Different ways of plotting your data with `ggplot()` using `geom_histogram()` and `geom_density_ridges()`](#different-ways-of-plotting-your-data-with-ggplot-using-geom_histogram-and-geom_density_ridges)
     -   [Data visualisation via volcano plots](#data-visualisation-via-volcano-plots)
+    -   [Create multiple plots using for loop / Code Snippets](#create-multiple-plots-using-for-loop-code-snippets)
 -   [**Dealing with strings and factors**](#dealing-with-strings-and-factors)
     -   [Matching strings](#matching-strings)
     -   [`library(forcats)`: the incredible things you can do with your `R` factors!](#libraryforcats-the-incredible-things-you-can-do-with-your-r-factors)
@@ -19,6 +21,13 @@ How R you? - R-Ladies Melbourne code and tips!
 -   [**`sessionInfo()`**](#sessioninfo)
 
 <img src="README_files/figure-markdown_github/unnamed-chunk-1-1.png" style="display: block; margin: auto auto auto 0;" />
+
+**R-Ladies Melbourne second anniversary**
+=========================================
+
+To celebrate our second birthday 🎂 we wanted to bring out the <!--html_preserve--><i class="fab  fa-r-project " style="color:blue;"></i><!--/html_preserve--> diversity of our community. That's why we asked to all our members and all the <!--html_preserve--><i class="fab  fa-r-project " style="color:purple;"></i><!--/html_preserve-->-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. Below are all the beautiful tips that we managed to collect!
+
+Have fun 😉!!
 
 **Visualisation**
 =================
@@ -325,6 +334,15 @@ Viola! Enjoy your volcano plot (and remember, there are lots of graphical modifi
 <http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software>
 
 <http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change-x-and-y-axis-limits>
+
+------------------------------------------------------------------------
+
+Create multiple plots using for loop / Code Snippets
+----------------------------------------------------
+
+**Author**: Ivy Lin
+
+Have a look at Ivy's R tip published on RPubs <http://rpubs.com/IvyLin/R-tips>.
 
 ------------------------------------------------------------------------
 
@@ -735,31 +753,26 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] datasets.load_0.3.0 ggrepel_0.8.0       bindrcpp_0.2.2     
-    ##  [4] pheatmap_1.0.10     readxl_1.1.0        forcats_0.3.0      
-    ##  [7] stringr_1.3.1       dplyr_0.7.6         purrr_0.2.5        
-    ## [10] readr_1.1.1         tidyr_0.8.1         tibble_1.4.2       
-    ## [13] tidyverse_1.2.1     reshape2_1.4.3      DT_0.4             
-    ## [16] ggplot2_3.0.0       knitr_1.20          icon_0.1.0         
-    ## [19] emo_0.0.0.9000      png_0.1-7           magick_1.9         
+    ##  [1] datasets.load_0.3.0 bindrcpp_0.2.2      ggrepel_0.8.0      
+    ##  [4] forcats_0.3.0       stringr_1.3.1       dplyr_0.7.6        
+    ##  [7] purrr_0.2.5         readr_1.1.1         tidyr_0.8.1        
+    ## [10] tibble_1.4.2        tidyverse_1.2.1     reshape2_1.4.3     
+    ## [13] DT_0.4              ggplot2_3.0.0       knitr_1.20         
+    ## [16] icon_0.1.0          emo_0.0.0.9000      png_0.1-7          
+    ## [19] magick_1.9         
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.18       lubridate_1.7.4    lattice_0.20-35   
-    ##  [4] utf8_1.1.4         assertthat_0.2.0   rprojroot_1.3-2   
-    ##  [7] digest_0.6.15      mime_0.5           R6_2.2.2          
-    ## [10] cellranger_1.1.0   plyr_1.8.4         backports_1.1.2   
-    ## [13] evaluate_0.11      highr_0.7          httr_1.3.1        
-    ## [16] pillar_1.3.0       rlang_0.2.2        lazyeval_0.2.1    
-    ## [19] miniUI_0.1.1.1     rstudioapi_0.7     rmarkdown_1.10    
-    ## [22] labeling_0.3       htmlwidgets_1.2    munsell_0.5.0     
-    ## [25] shiny_1.1.0        broom_0.5.0        compiler_3.5.1    
-    ## [28] httpuv_1.4.5       modelr_0.1.2       pkgconfig_2.0.2   
-    ## [31] htmltools_0.3.6    tidyselect_0.2.4   codetools_0.2-15  
-    ## [34] fansi_0.3.0        crayon_1.3.4       withr_2.1.2       
-    ## [37] later_0.7.3        xtable_1.8-2       nlme_3.1-137      
-    ## [40] jsonlite_1.5       gtable_0.2.0       magrittr_1.5      
-    ## [43] scales_1.0.0       cli_1.0.0          stringi_1.2.4     
-    ## [46] promises_1.0.1     xml2_1.2.0         RColorBrewer_1.1-2
-    ## [49] tools_3.5.1        glue_1.3.0         hms_0.4.2         
-    ## [52] crosstalk_1.0.0    yaml_2.2.0         colorspace_1.3-2  
-    ## [55] rvest_0.3.2        bindr_0.1.1        haven_1.1.2
+    ##  [1] Rcpp_0.12.18     lubridate_1.7.4  lattice_0.20-35  utf8_1.1.4      
+    ##  [5] assertthat_0.2.0 rprojroot_1.3-2  digest_0.6.15    mime_0.5        
+    ##  [9] R6_2.2.2         cellranger_1.1.0 plyr_1.8.4       backports_1.1.2 
+    ## [13] evaluate_0.11    highr_0.7        httr_1.3.1       pillar_1.3.0    
+    ## [17] rlang_0.2.2      lazyeval_0.2.1   readxl_1.1.0     miniUI_0.1.1.1  
+    ## [21] rstudioapi_0.7   rmarkdown_1.10   labeling_0.3     htmlwidgets_1.2 
+    ## [25] munsell_0.5.0    shiny_1.1.0      broom_0.5.0      compiler_3.5.1  
+    ## [29] httpuv_1.4.5     modelr_0.1.2     pkgconfig_2.0.2  htmltools_0.3.6 
+    ## [33] tidyselect_0.2.4 fansi_0.3.0      crayon_1.3.4     withr_2.1.2     
+    ## [37] later_0.7.3      nlme_3.1-137     jsonlite_1.5     xtable_1.8-2    
+    ## [41] gtable_0.2.0     magrittr_1.5     scales_1.0.0     cli_1.0.0       
+    ## [45] stringi_1.2.4    promises_1.0.1   xml2_1.2.0       tools_3.5.1     
+    ## [49] glue_1.3.0       hms_0.4.2        crosstalk_1.0.0  yaml_2.2.0      
+    ## [53] colorspace_1.3-2 rvest_0.3.2      bindr_0.1.1      haven_1.1.2
