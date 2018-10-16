@@ -3,11 +3,13 @@ title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "17/10/2018"
 always_allow_html: yes
 output:
-  github_document:
+  html_document:
+    includes:
+      after_body: header.html
+    theme: cosmo
     toc: yes
     toc_depth: 2
-  html_document:
-    theme: cosmo
+  github_document:
     toc: yes
     toc_depth: 2
 ---
