@@ -43,8 +43,6 @@ grid.raster(img)
 
 To celebrate our second birthday `r emo::ji("birthday")` we wanted to bring out the `r icon::fa_r_project(colour="blue")` diversity of our community. That's why we asked to all our members and all the `r icon::fa_r_project(colour="purple")`-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. Below are all the beautiful tips that we managed to collect!
 
-Find all the code and data also in our GitHub page https://github.com/R-LadiesMelbourne/2018-10-16_How-R-You. 
-
 Have fun `r emo::ji("wink")`!!
 
 <br>
