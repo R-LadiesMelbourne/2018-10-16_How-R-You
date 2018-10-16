@@ -563,13 +563,17 @@ plot_grid(p1,p2)
 
 <br>
 
-# **Data manipulation with `mutate_at()` and `summarise_at()`**
+# **Data manipulation**
+
+<br>
+
+## `mutate_at()` and `summarise_at()`
 
 **Author**: [Lucy Liu](https://twitter.com/lucyleeow)
 
 A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
 
-## Mutate
+### Mutate
 
 The well known `mutate()` lets you do something like this:
 
@@ -622,7 +626,7 @@ iris %>%
   head()
 ```
 
-## Summarise
+### Summarise
 
 `summarise_at()` works similarly:
 
@@ -636,6 +640,82 @@ iris %>%
 ```
 
 You select columns using `vars()` and use `funs()` to tell it what function you want to perform.
+
+<br>
+
+***
+
+<br>
+
+
+## Accessing company information from Company House (UK)
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+
+Companies House <https://beta.companieshouse.gov.uk/> is the United Kingdom's registrar of companies. As a member of the Public Data Group, they make their company-related data available for public use via their API <https://developer.companieshouse.gov.uk/api/docs/>
+
+You can search company related information using http request, save it and use it for your analysis. You can either search one company or a group of companies. They are very generous with the inforamtion they provide.
+
+
+### API key authentication
+
+The Companies House API works with authentication credentials that are sent with each request.
+
+To get an API key, you need to setup an applications and register it with the Companies House Developer Hub as an API Key application. This can be done here: <https://developer.companieshouse.gov.uk/developer/applications>
+
+
+This will allocate a unique key to the application which can be sent with any GET request for a public resource served by the Companies House API.
+
+In this example we are searching information about two companies with registration numbers 05141488 and 09202639
+
+```{r }
+
+options(stringsAsFactors = FALSE)
+library(httr)
+library(jsonlite)
+library(data.table)
+library(RCurl)
+library(purrr)
+
+#company overview page - List of companies
+pages = list()
+dataFrame = list()
+
+companies<-c("05141488","09202639")
+
+companyList <- paste("https://api.companieshouse.gov.uk/company/", companies, sep="")
+
+for(u in companyList) {
+  
+  pages[[u]] = GET(u, authenticate("q3LHh0aXgO8d2OI_Mq4uTJb_Mw-sNZPLTKzrb1Fl", ""))
+  
+  cont <- content(pages[[u]], as = "parsed", type = "application/json")
+
+#explicit convertion to data frame
+  dataFrame[[u]] <- data.frame(cont)
+  }
+```
+
+Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need. In our case it 
+
+```{r }
+
+#select elements from lists
+
+dataFrameSelected<-lapply(dataFrame, `[`, c('company_number',
+                                            'date_of_creation',
+                                            'type',
+                                            'company_name'))
+
+
+
+#convert selected to dataframe
+dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
 
 <br>
 

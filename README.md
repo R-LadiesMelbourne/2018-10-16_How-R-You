@@ -13,9 +13,9 @@ How R you? - R-Ladies Melbourne code and tips!
 -   [**Dealing with strings and factors**](#dealing-with-strings-and-factors)
     -   [Matching strings](#matching-strings)
     -   [`library(forcats)`: the incredible things you can do with your `R` factors!](#libraryforcats-the-incredible-things-you-can-do-with-your-r-factors)
--   [**Data manipulation with `mutate_at()` and `summarise_at()`**](#data-manipulation-with-mutate_at-and-summarise_at)
-    -   [Mutate](#mutate)
-    -   [Summarise](#summarise)
+-   [**Data manipulation**](#data-manipulation)
+    -   [`mutate_at()` and `summarise_at()`](#mutate_at-and-summarise_at)
+    -   [Accessing company information from Company House (UK)](#accessing-company-information-from-company-house-uk)
 -   [**Where to get help with your `R` question?**](#where-to-get-help-with-your-r-question)
 -   [**How to get all the functions within a package**](#how-to-get-all-the-functions-within-a-package)
 -   [**`sessionInfo()`**](#sessioninfo)
@@ -26,8 +26,6 @@ How R you? - R-Ladies Melbourne code and tips!
 =========================================
 
 To celebrate our second birthday 🎂 we wanted to bring out the <!--html_preserve--><i class="fab  fa-r-project " style="color:blue;"></i><!--/html_preserve--> diversity of our community. That's why we asked to all our members and all the <!--html_preserve--><i class="fab  fa-r-project " style="color:purple;"></i><!--/html_preserve-->-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. Below are all the beautiful tips that we managed to collect!
-
-Find all the code and data also in our GitHub page <https://github.com/R-LadiesMelbourne/2018-10-16_How-R-You>.
 
 Have fun 😉!!
 
@@ -633,15 +631,19 @@ plot_grid(p1,p2)
 
 <br>
 
-**Data manipulation with `mutate_at()` and `summarise_at()`**
-=============================================================
+**Data manipulation**
+=====================
+
+<br>
+
+`mutate_at()` and `summarise_at()`
+----------------------------------
 
 **Author**: [Lucy Liu](https://twitter.com/lucyleeow)
 
 A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
 
-Mutate
-------
+### Mutate
 
 The well known `mutate()` lets you do something like this:
 
@@ -739,8 +741,7 @@ iris %>%
     ## 5 -1.6094379
     ## 6 -0.9162907
 
-Summarise
----------
+### Summarise
 
 `summarise_at()` works similarly:
 
@@ -763,6 +764,76 @@ iris %>%
     ## #   Petal.Length_sd <dbl>, Petal.Width_sd <dbl>
 
 You select columns using `vars()` and use `funs()` to tell it what function you want to perform.
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+Accessing company information from Company House (UK)
+-----------------------------------------------------
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+Companies House <https://beta.companieshouse.gov.uk/> is the United Kingdom's registrar of companies. As a member of the Public Data Group, they make their company-related data available for public use via their API <https://developer.companieshouse.gov.uk/api/docs/>
+
+You can search company related information using http request, save it and use it for your analysis. You can either search one company or a group of companies. They are very generous with the inforamtion they provide.
+
+### API key authentication
+
+The Companies House API works with authentication credentials that are sent with each request.
+
+To get an API key, you need to setup an applications and register it with the Companies House Developer Hub as an API Key application. This can be done here: <https://developer.companieshouse.gov.uk/developer/applications>
+
+This will allocate a unique key to the application which can be sent with any GET request for a public resource served by the Companies House API.
+
+In this example we are searching information about two companies with registration numbers 05141488 and 09202639
+
+``` r
+options(stringsAsFactors = FALSE)
+library(httr)
+library(jsonlite)
+library(data.table)
+library(RCurl)
+library(purrr)
+
+#company overview page - List of companies
+pages = list()
+dataFrame = list()
+
+companies<-c("05141488","09202639")
+
+companyList <- paste("https://api.companieshouse.gov.uk/company/", companies, sep="")
+
+for(u in companyList) {
+  
+  pages[[u]] = GET(u, authenticate("q3LHh0aXgO8d2OI_Mq4uTJb_Mw-sNZPLTKzrb1Fl", ""))
+  
+  cont <- content(pages[[u]], as = "parsed", type = "application/json")
+
+#explicit convertion to data frame
+  dataFrame[[u]] <- data.frame(cont)
+  }
+```
+
+Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need. In our case it
+
+``` r
+#select elements from lists
+
+dataFrameSelected<-lapply(dataFrame, `[`, c('company_number',
+                                            'date_of_creation',
+                                            'type',
+                                            'company_name'))
+
+
+
+#convert selected to dataframe
+dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 <br>
 
@@ -907,27 +978,28 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] cowplot_0.9.3       datasets.load_0.3.0 bindrcpp_0.2.2     
-    ##  [4] ggrepel_0.8.0       forcats_0.3.0       stringr_1.3.1      
-    ##  [7] dplyr_0.7.6         purrr_0.2.5         readr_1.1.1        
-    ## [10] tidyr_0.8.1         tibble_1.4.2        tidyverse_1.2.1    
-    ## [13] reshape2_1.4.3      DT_0.4              ggplot2_3.0.0      
-    ## [16] knitr_1.20          icon_0.1.0          emo_0.0.0.9000     
-    ## [19] png_0.1-7           magick_1.9         
+    ##  [1] RCurl_1.95-4.11     bitops_1.0-6        data.table_1.11.6  
+    ##  [4] jsonlite_1.5        httr_1.3.1          cowplot_0.9.3      
+    ##  [7] datasets.load_0.3.0 bindrcpp_0.2.2      ggrepel_0.8.0      
+    ## [10] forcats_0.3.0       stringr_1.3.1       dplyr_0.7.6        
+    ## [13] purrr_0.2.5         readr_1.1.1         tidyr_0.8.1        
+    ## [16] tibble_1.4.2        tidyverse_1.2.1     reshape2_1.4.3     
+    ## [19] DT_0.4              ggplot2_3.0.0       knitr_1.20         
+    ## [22] icon_0.1.0          emo_0.0.0.9000      png_0.1-7          
+    ## [25] magick_1.9         
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_0.12.18     lubridate_1.7.4  lattice_0.20-35  utf8_1.1.4      
-    ##  [5] assertthat_0.2.0 rprojroot_1.3-2  digest_0.6.15    mime_0.5        
-    ##  [9] R6_2.2.2         cellranger_1.1.0 plyr_1.8.4       backports_1.1.2 
-    ## [13] evaluate_0.11    httr_1.3.1       highr_0.7        pillar_1.3.0    
-    ## [17] rlang_0.2.2      lazyeval_0.2.1   readxl_1.1.0     miniUI_0.1.1.1  
-    ## [21] rstudioapi_0.7   rmarkdown_1.10   labeling_0.3     htmlwidgets_1.2 
-    ## [25] munsell_0.5.0    shiny_1.1.0      broom_0.5.0      compiler_3.5.1  
-    ## [29] httpuv_1.4.5     modelr_0.1.2     pkgconfig_2.0.2  htmltools_0.3.6 
-    ## [33] tidyselect_0.2.4 codetools_0.2-15 fansi_0.3.0      crayon_1.3.4    
-    ## [37] withr_2.1.2      later_0.7.3      nlme_3.1-137     jsonlite_1.5    
-    ## [41] xtable_1.8-2     gtable_0.2.0     magrittr_1.5     scales_1.0.0    
-    ## [45] cli_1.0.0        stringi_1.2.4    promises_1.0.1   xml2_1.2.0      
-    ## [49] tools_3.5.1      glue_1.3.0       hms_0.4.2        crosstalk_1.0.0 
-    ## [53] yaml_2.2.0       colorspace_1.3-2 rvest_0.3.2      bindr_0.1.1     
-    ## [57] haven_1.1.2
+    ##  [1] modelr_0.1.2     shiny_1.1.0      assertthat_0.2.0 cellranger_1.1.0
+    ##  [5] yaml_2.2.0       pillar_1.3.0     backports_1.1.2  lattice_0.20-35 
+    ##  [9] glue_1.3.0       digest_0.6.15    promises_1.0.1   rvest_0.3.2     
+    ## [13] colorspace_1.3-2 htmltools_0.3.6  httpuv_1.4.5     plyr_1.8.4      
+    ## [17] pkgconfig_2.0.2  broom_0.5.0      haven_1.1.2      xtable_1.8-2    
+    ## [21] scales_1.0.0     later_0.7.3      withr_2.1.2      lazyeval_0.2.1  
+    ## [25] cli_1.0.0        magrittr_1.5     crayon_1.3.4     readxl_1.1.0    
+    ## [29] mime_0.5         evaluate_0.11    fansi_0.3.0      nlme_3.1-137    
+    ## [33] xml2_1.2.0       tools_3.5.1      hms_0.4.2        munsell_0.5.0   
+    ## [37] compiler_3.5.1   rlang_0.2.2      rstudioapi_0.7   htmlwidgets_1.2 
+    ## [41] crosstalk_1.0.0  miniUI_0.1.1.1   labeling_0.3     rmarkdown_1.10  
+    ## [45] gtable_0.2.0     curl_3.2         R6_2.2.2         lubridate_1.7.4 
+    ## [49] utf8_1.1.4       bindr_0.1.1      rprojroot_1.3-2  stringi_1.2.4   
+    ## [53] Rcpp_0.12.18     tidyselect_0.2.4
