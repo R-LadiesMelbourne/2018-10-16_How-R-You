@@ -132,7 +132,14 @@ I used here ggd, which is a data frame extracted from clustering and expression 
 
 Example of the data:
 
-[](How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png)
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=TRUE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40,opts.label ="squarefigure"}
+library(png)
+library(grid)
+img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png")
+grid.raster(img)
+```
+
+<br>
 
 ```{r eval=FALSE}
 ### Density distributions
@@ -669,7 +676,7 @@ This will allocate a unique key to the application which can be sent with any GE
 
 In this example we are searching information about two companies with registration numbers 05141488 and 09202639
 
-```{r }
+```{r message=FALSE}
 
 options(stringsAsFactors = FALSE)
 library(httr)
@@ -715,6 +722,20 @@ dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+<br>
+
+***
+
+<br>
+
+## Manipulate a list to transform it to a data frame
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+```{r eval=FALSE}
+test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
+```
 
 
 <br>
