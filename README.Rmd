@@ -132,7 +132,7 @@ I used here ggd, which is a data frame extracted from clustering and expression 
 
 Example of the data:
 
-```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=TRUE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40,opts.label ="squarefigure"}
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=TRUE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40}
 library(png)
 library(grid)
 img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png")
@@ -659,11 +659,9 @@ You select columns using `vars()` and use `funs()` to tell it what function you 
 
 **Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
 
-
 Companies House <https://beta.companieshouse.gov.uk/> is the United Kingdom's registrar of companies. As a member of the Public Data Group, they make their company-related data available for public use via their API <https://developer.companieshouse.gov.uk/api/docs/>
 
 You can search company related information using http request, save it and use it for your analysis. You can either search one company or a group of companies. They are very generous with the inforamtion they provide.
-
 
 ### API key authentication
 
@@ -676,9 +674,10 @@ This will allocate a unique key to the application which can be sent with any GE
 
 In this example we are searching information about two companies with registration numbers 05141488 and 09202639
 
-```{r message=FALSE}
+```{r }
 
 options(stringsAsFactors = FALSE)
+library(knitr)
 library(httr)
 library(jsonlite)
 library(data.table)
@@ -701,10 +700,10 @@ for(u in companyList) {
 
 #explicit convertion to data frame
   dataFrame[[u]] <- data.frame(cont)
-  }
+}
 ```
 
-Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need. In our case it 
+Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need.
 
 ```{r }
 
@@ -719,9 +718,12 @@ dataFrameSelected<-lapply(dataFrame, `[`, c('company_number',
 
 #convert selected to dataframe
 dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#dataFrameCompanyOverview
+
+kable(dataFrameCompanyOverview, format = "html", caption = "Company data from CompanyHouse")
+
+```
 
 <br>
 

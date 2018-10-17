@@ -16,6 +16,7 @@ How R you? - R-Ladies Melbourne code and tips!
 -   [**Data manipulation**](#data-manipulation)
     -   [`mutate_at()` and `summarise_at()`](#mutate_at-and-summarise_at)
     -   [Accessing company information from Company House (UK)](#accessing-company-information-from-company-house-uk)
+    -   [Manipulate a list to transform it to a data frame](#manipulate-a-list-to-transform-it-to-a-data-frame)
 -   [**Where to get help with your `R` question?**](#where-to-get-help-with-your-r-question)
 -   [**How to get all the functions within a package**](#how-to-get-all-the-functions-within-a-package)
 -   [**`sessionInfo()`**](#sessioninfo)
@@ -127,7 +128,12 @@ I used here ggd, which is a data frame extracted from clustering and expression 
 
 Example of the data:
 
-[](How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png)
+<img src="README_files/figure-markdown_github/unnamed-chunk-5-1.png" alt="Screenshot showing the first six rows of the data used to generate the plots below."  />
+<p class="caption">
+Screenshot showing the first six rows of the data used to generate the plots below.
+</p>
+
+<br>
 
 ``` r
 ### Density distributions
@@ -155,17 +161,17 @@ geom_histogram()
 ggsave("Fig3.pdf")
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-6-1.png" alt="Figure 1. `geom_density_ridges()`"  />
+<img src="README_files/figure-markdown_github/unnamed-chunk-7-1.png" alt="Figure 1. `geom_density_ridges()`"  />
 <p class="caption">
 Figure 1. `geom_density_ridges()`
 </p>
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-7-1.png" alt="Figure 2. `geom_histogram()` and `facet_wrap()`"  />
+<img src="README_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="Figure 2. `geom_histogram()` and `facet_wrap()`"  />
 <p class="caption">
 Figure 2. `geom_histogram()` and `facet_wrap()`
 </p>
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="Figure 3. Another example of `geom_histogram() colouring by classes.`"  />
+<img src="README_files/figure-markdown_github/unnamed-chunk-9-1.png" alt="Figure 3. Another example of `geom_histogram() colouring by classes.`"  />
 <p class="caption">
 Figure 3. Another example of `geom_histogram() colouring by classes.`
 </p>
@@ -245,7 +251,7 @@ simple_vp <- ggplot(AvsB_results, aes(x = log2FoldChange,
 simple_vp
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 This plot is too plain as objects of interest do not easily jump out at us.
 A good volcano plot will highlight all the signals (represented by individual data points) which are significantly different between A vs B.
@@ -259,7 +265,7 @@ simple_vp +
   geom_vline(xintercept = c(-1,1), linetype = "dashed") # vertical dashed line
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 The top-left quadrant contains all signals that are significantly decreased in A vs B, and the top right quandrant contains genes that are significantly increased in A vs B. The remaining genes are not significantly different and hence much less interesting to me.
 
@@ -302,7 +308,7 @@ ggplot(AvsB_results, aes(x = log2FoldChange,
   geom_vline(xintercept = c(-1,1), linetype = "dashed") 
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 This is great! But there is still one final nifty trick!
 
@@ -340,7 +346,7 @@ ggplot(AvsB_results, aes(x = log2FoldChange,
   theme(panel.border = element_rect(colour = "black", fill=NA, size= 0.5)) # creates a plot border
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 Viola! Enjoy your volcano plot (and remember, there are lots of graphical modifiers you can use to visualise data using them, as long as your methods are logical and reasonable)!
 
@@ -460,7 +466,7 @@ for (i in variables){
 }
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-2.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-3.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-4.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-5.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-6.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-7.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-8.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-9.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-10.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-11.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-12.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-13.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-14.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-15.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-20-16.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-2.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-3.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-4.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-5.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-6.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-7.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-8.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-9.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-10.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-11.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-12.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-13.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-14.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-15.png" style="display: block; margin: auto;" /><img src="README_files/figure-markdown_github/unnamed-chunk-21-16.png" style="display: block; margin: auto;" />
 
 -   Pros : Efficient way to do exploratory plot.
 -   Cons : Cannot adjust individual plot.
@@ -470,7 +476,7 @@ for (i in variables){
 Just type : snippet plus function name e.g. `snippet fun` , `snippet apply`.
 Or View the build-in snippets from Tool &gt; Global options &gt; Code &gt; Snippet, you can create your own snippet.
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-22-1.png" style="display: block; margin: auto;" />
 
     # example for snippet fun
 
@@ -500,7 +506,7 @@ Matching strings
 
 Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1).
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-22-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
 <br>
 
@@ -558,7 +564,7 @@ ggplot(aes(x=Diet,y=weight)) + geom_boxplot() +  ggtitle("After fct_relevel(Diet
 plot_grid(p1,p2)
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-26-1.png" style="display: block; margin: auto;" />
 
 -   `forcats::fct_infreq`: reorder by factor frequency
 
@@ -593,7 +599,7 @@ ggplot(aes(x=Diet)) + geom_bar() + ggtitle("After fct_infreq(Diet)") + theme_bw(
 plot_grid(p1,p2)
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-26-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-27-1.png" style="display: block; margin: auto;" />
 
 -   `forcats::fct_reorder`: reorder by values of another variable
 
@@ -623,7 +629,7 @@ p2=chickwts %>%
 plot_grid(p1,p2)
 ```
 
-<img src="README_files/figure-markdown_github/unnamed-chunk-27-2.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-markdown_github/unnamed-chunk-28-2.png" style="display: block; margin: auto;" />
 
 <br>
 
@@ -792,6 +798,7 @@ In this example we are searching information about two companies with registrati
 
 ``` r
 options(stringsAsFactors = FALSE)
+library(knitr)
 library(httr)
 library(jsonlite)
 library(data.table)
@@ -814,10 +821,10 @@ for(u in companyList) {
 
 #explicit convertion to data frame
   dataFrame[[u]] <- data.frame(cont)
-  }
+}
 ```
 
-Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need. In our case it
+Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need.
 
 ``` r
 #select elements from lists
@@ -831,9 +838,85 @@ dataFrameSelected<-lapply(dataFrame, `[`, c('company_number',
 
 #convert selected to dataframe
 dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
+
+#dataFrameCompanyOverview
+
+kable(dataFrameCompanyOverview, format = "html", caption = "Company data from CompanyHouse")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+<table>
+<caption>
+Company data from CompanyHouse
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+company\_number
+</th>
+<th style="text-align:left;">
+date\_of\_creation
+</th>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:left;">
+company\_name
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<https://api.companieshouse.gov.uk/company/05141488>
+</td>
+<td style="text-align:left;">
+05141488
+</td>
+<td style="text-align:left;">
+2004-06-01
+</td>
+<td style="text-align:left;">
+ltd
+</td>
+<td style="text-align:left;">
+SPECIALISED CAMERA SERVICES LIMITED
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<https://api.companieshouse.gov.uk/company/09202639>
+</td>
+<td style="text-align:left;">
+09202639
+</td>
+<td style="text-align:left;">
+2014-09-03
+</td>
+<td style="text-align:left;">
+ltd
+</td>
+<td style="text-align:left;">
+SELL MY LIVESTOCK UK LTD
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+Manipulate a list to transform it to a data frame
+-------------------------------------------------
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+``` r
+test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
+```
 
 <br>
 
@@ -989,17 +1072,17 @@ sessionInfo()
     ## [25] magick_1.9         
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] modelr_0.1.2     shiny_1.1.0      assertthat_0.2.0 cellranger_1.1.0
-    ##  [5] yaml_2.2.0       pillar_1.3.0     backports_1.1.2  lattice_0.20-35 
-    ##  [9] glue_1.3.0       digest_0.6.15    promises_1.0.1   rvest_0.3.2     
-    ## [13] colorspace_1.3-2 htmltools_0.3.6  httpuv_1.4.5     plyr_1.8.4      
-    ## [17] pkgconfig_2.0.2  broom_0.5.0      haven_1.1.2      xtable_1.8-2    
-    ## [21] scales_1.0.0     later_0.7.3      withr_2.1.2      lazyeval_0.2.1  
-    ## [25] cli_1.0.0        magrittr_1.5     crayon_1.3.4     readxl_1.1.0    
-    ## [29] mime_0.5         evaluate_0.11    fansi_0.3.0      nlme_3.1-137    
-    ## [33] xml2_1.2.0       tools_3.5.1      hms_0.4.2        munsell_0.5.0   
-    ## [37] compiler_3.5.1   rlang_0.2.2      rstudioapi_0.7   htmlwidgets_1.2 
-    ## [41] crosstalk_1.0.0  miniUI_0.1.1.1   labeling_0.3     rmarkdown_1.10  
-    ## [45] gtable_0.2.0     curl_3.2         R6_2.2.2         lubridate_1.7.4 
-    ## [49] utf8_1.1.4       bindr_0.1.1      rprojroot_1.3-2  stringi_1.2.4   
-    ## [53] Rcpp_0.12.18     tidyselect_0.2.4
+    ##  [1] modelr_0.1.2     shiny_1.1.0      assertthat_0.2.0 highr_0.7       
+    ##  [5] cellranger_1.1.0 yaml_2.2.0       pillar_1.3.0     backports_1.1.2 
+    ##  [9] lattice_0.20-35  glue_1.3.0       digest_0.6.15    promises_1.0.1  
+    ## [13] rvest_0.3.2      colorspace_1.3-2 htmltools_0.3.6  httpuv_1.4.5    
+    ## [17] plyr_1.8.4       pkgconfig_2.0.2  broom_0.5.0      haven_1.1.2     
+    ## [21] xtable_1.8-2     scales_1.0.0     later_0.7.3      withr_2.1.2     
+    ## [25] lazyeval_0.2.1   cli_1.0.0        magrittr_1.5     crayon_1.3.4    
+    ## [29] readxl_1.1.0     mime_0.5         evaluate_0.11    fansi_0.3.0     
+    ## [33] nlme_3.1-137     xml2_1.2.0       tools_3.5.1      hms_0.4.2       
+    ## [37] munsell_0.5.0    compiler_3.5.1   rlang_0.2.2      rstudioapi_0.7  
+    ## [41] htmlwidgets_1.2  crosstalk_1.0.0  miniUI_0.1.1.1   labeling_0.3    
+    ## [45] rmarkdown_1.10   gtable_0.2.0     codetools_0.2-15 curl_3.2        
+    ## [49] R6_2.2.2         lubridate_1.7.4  utf8_1.1.4       bindr_0.1.1     
+    ## [53] rprojroot_1.3-2  stringi_1.2.4    Rcpp_0.12.18     tidyselect_0.2.4
