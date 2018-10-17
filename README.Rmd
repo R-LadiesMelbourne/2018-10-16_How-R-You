@@ -1,17 +1,22 @@
 ---
 title: "How R you? - R-Ladies Melbourne code and tips!"
 date: "17/10/2018"
-always_allow_html: yes
 output:
   html_document:
     includes:
-      after_body: [header.html,footer.html]
+      after_body:
+      - header.html
+      - footer.html
     theme: cosmo
     toc: yes
     toc_depth: 2
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   github_document:
     toc: yes
     toc_depth: 2
+always_allow_html: yes
 ---
 
 
@@ -32,20 +37,47 @@ library(knitr)
 ```
 
 
-```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='left',cache=TRUE}
-library(png)
-library(grid)
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='left',cache=FALSE}
 img <- readPNG("./Figures/logo.png")
 grid.raster(img)
 ```
 
 # **R-Ladies Melbourne second anniversary**
 
-To celebrate our second birthday `r emo::ji("birthday")` we wanted to bring out the `r icon::fa_r_project(colour="blue")` diversity of our community. That's why we asked to all our members and all the `r icon::fa_r_project(colour="purple")`-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. Below are all the beautiful tips that we managed to collect!
+To celebrate our second birthday `r emo::ji("birthday")` we wanted to bring out the `r icon::fa_r_project(colour="blue")` diversity of our community. That's why we asked to all our members and all the `r icon::fa_r_project(colour="purple")`-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. The lightning talks were followed by a panel discussion about R worlflows and communication of a project results. 
+Below are some highlights from the night and all the beautiful tips that we manage to collect!
 
 Have fun `r emo::ji("wink")`!!
 
 <br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">⁦<a href="https://twitter.com/annaquagli?ref_src=twsrc%5Etfw">@annaquagli</a>⁩ on the summary of our last year : This is a great achievement that we reached more than 1000 members in Sep! Thanks to all the members and sponsors! ⁦ <a href="https://t.co/45nbHoJELz">pic.twitter.com/45nbHoJELz</a></p>&mdash; R-Ladies Melbourne (@RLadiesMelb) <a href="https://twitter.com/RLadiesMelb/status/1052455382684192768?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<br><br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The first &amp; most important part of presenting your findings is telling your audience why they should care about the results. If you don’t have their attention, it doesn’t matter how pretty your graphs are.<br>-<a href="https://twitter.com/nikkirubinstein?ref_src=twsrc%5Etfw">@nikkirubinstein</a> on how to give a talk<a href="https://twitter.com/RLadiesMelb?ref_src=twsrc%5Etfw">@RLadiesMelb</a> <a href="https://twitter.com/hashtag/Rladies?src=hash&amp;ref_src=twsrc%5Etfw">#Rladies</a> <a href="https://twitter.com/hashtag/howRYou?src=hash&amp;ref_src=twsrc%5Etfw">#howRYou</a> <a href="https://t.co/llQLlBENMM">pic.twitter.com/llQLlBENMM</a></p>&mdash; David M for Murder (@frostickle) <a href="https://twitter.com/frostickle/status/1052474544106045440?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<br><br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Fantastic way to celebrate the second anniversary of <a href="https://twitter.com/RLadiesMelb?ref_src=twsrc%5Etfw">@RLadiesMelb</a>! Nice baking <a href="https://twitter.com/trashystats?ref_src=twsrc%5Etfw">@trashystats</a> 🎂 <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> celebration 🎊 <a href="https://t.co/eFVQCpIZE4">pic.twitter.com/eFVQCpIZE4</a></p>&mdash; Nikki Rubinstein (@nikkirubinstein) <a href="https://twitter.com/nikkirubinstein/status/1052479925947576321?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<br><br>
+
+
+
+
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=FALSE,fig.asp=0.80}
+img <- readPNG("Figures/group_photo.png")
+grid.raster(img)
+```
+<br>
+
+
 
 # **Visualisation**
 
@@ -132,7 +164,7 @@ I used here ggd, which is a data frame extracted from clustering and expression 
 
 Example of the data:
 
-```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=TRUE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40}
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=FALSE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40}
 library(png)
 library(grid)
 img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png")
@@ -168,17 +200,17 @@ ggsave("Fig3.pdf")
 ```
 
 
-```{r echo=FALSE,message=FALSE,fig.align='center',cache=TRUE, fig.cap="Figure 1. `geom_density_ridges()`"}
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 1. `geom_density_ridges()`"}
 img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig1.png")
 grid.raster(img)
 ```
 
-```{r echo=FALSE,message=FALSE,fig.align='center',cache=TRUE, fig.cap="Figure 2. `geom_histogram()` and `facet_wrap()`"}
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 2. `geom_histogram()` and `facet_wrap()`"}
 img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig2.png")
 grid.raster(img)
 ```
 
-```{r echo=FALSE,message=FALSE,fig.align='center',cache=TRUE, fig.cap="Figure 3. Another example of `geom_histogram() colouring by classes.`"}
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 3. Another example of `geom_histogram() colouring by classes.`"}
 img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig3.png")
 grid.raster(img)
 ```
@@ -371,6 +403,8 @@ http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change
 
 **Author**: Ivy Lin
 
+
+
 Have a look at Ivy's R tip published on RPubs http://rpubs.com/IvyLin/R-tips or got through her code below. 
 
 ### Tip 1 : Create multiple plots using for loop
@@ -446,15 +480,15 @@ img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/Code_snippet.png"
 grid.raster(img)
 ```
 
-```{}
+```{r eval=FALSE}
 # example for snippet fun
-
-name <- function(variables) {
+for(){
   
 }
 
-# example for snippet apply
-apply(array, margin, ...)
+for (i in appple) {
+  
+}
 ```
 
 * Detailed document about Code Snippets:<https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets>
@@ -475,7 +509,7 @@ apply(array, margin, ...)
 
 Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1). 
 
-```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='center',cache=TRUE}
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='center',cache=FALSE}
 library(png)
 library(grid)
 img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png")
