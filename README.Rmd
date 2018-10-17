@@ -654,8 +654,22 @@ You select columns using `vars()` and use `funs()` to tell it what function you 
 
 <br>
 
+## Manipulate a list to transform it to a data frame
 
-## Accessing company information from Company House (UK)
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+```{r eval=FALSE}
+test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
+```
+
+
+<br>
+
+***
+
+<br>
+
+# **Accessing company information from Company House (UK)**
 
 **Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
 
@@ -731,20 +745,6 @@ kable(dataFrameCompanyOverview, format = "html", caption = "Company data from Co
 
 <br>
 
-## Manipulate a list to transform it to a data frame
-
-**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
-
-```{r eval=FALSE}
-test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
-```
-
-
-<br>
-
-***
-
-<br>
 
 # **Where to get help with your `R` question?**
 

@@ -15,8 +15,9 @@ How R you? - R-Ladies Melbourne code and tips!
     -   [`library(forcats)`: the incredible things you can do with your `R` factors!](#libraryforcats-the-incredible-things-you-can-do-with-your-r-factors)
 -   [**Data manipulation**](#data-manipulation)
     -   [`mutate_at()` and `summarise_at()`](#mutate_at-and-summarise_at)
-    -   [Accessing company information from Company House (UK)](#accessing-company-information-from-company-house-uk)
     -   [Manipulate a list to transform it to a data frame](#manipulate-a-list-to-transform-it-to-a-data-frame)
+-   [**Accessing company information from Company House (UK)**](#accessing-company-information-from-company-house-uk)
+    -   [API key authentication](#api-key-authentication)
 -   [**Where to get help with your `R` question?**](#where-to-get-help-with-your-r-question)
 -   [**How to get all the functions within a package**](#how-to-get-all-the-functions-within-a-package)
 -   [**`sessionInfo()`**](#sessioninfo)
@@ -777,8 +778,23 @@ You select columns using `vars()` and use `funs()` to tell it what function you 
 
 <br>
 
-Accessing company information from Company House (UK)
------------------------------------------------------
+Manipulate a list to transform it to a data frame
+-------------------------------------------------
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+``` r
+test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
+```
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+**Accessing company information from Company House (UK)**
+=========================================================
 
 **Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
 
@@ -903,21 +919,6 @@ SELL MY LIVESTOCK UK LTD
 </tr>
 </tbody>
 </table>
-<br>
-
-------------------------------------------------------------------------
-
-<br>
-
-Manipulate a list to transform it to a data frame
--------------------------------------------------
-
-**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
-
-``` r
-test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
-```
-
 <br>
 
 ------------------------------------------------------------------------
@@ -1083,6 +1084,6 @@ sessionInfo()
     ## [33] nlme_3.1-137     xml2_1.2.0       tools_3.5.1      hms_0.4.2       
     ## [37] munsell_0.5.0    compiler_3.5.1   rlang_0.2.2      rstudioapi_0.7  
     ## [41] htmlwidgets_1.2  crosstalk_1.0.0  miniUI_0.1.1.1   labeling_0.3    
-    ## [45] rmarkdown_1.10   gtable_0.2.0     codetools_0.2-15 curl_3.2        
-    ## [49] R6_2.2.2         lubridate_1.7.4  utf8_1.1.4       bindr_0.1.1     
-    ## [53] rprojroot_1.3-2  stringi_1.2.4    Rcpp_0.12.18     tidyselect_0.2.4
+    ## [45] rmarkdown_1.10   gtable_0.2.0     curl_3.2         R6_2.2.2        
+    ## [49] lubridate_1.7.4  utf8_1.1.4       bindr_0.1.1      rprojroot_1.3-2 
+    ## [53] stringi_1.2.4    Rcpp_0.12.18     tidyselect_0.2.4
