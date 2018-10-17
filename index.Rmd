@@ -1,0 +1,819 @@
+---
+title: "How R you? - R-Ladies Melbourne code and tips!"
+date: "17/10/2018"
+output:
+  html_document:
+    includes:
+      after_body:
+      - header.html
+      - footer.html
+    theme: cosmo
+    toc: yes
+    toc_depth: 2
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  github_document:
+    toc: yes
+    toc_depth: 2
+always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message=FALSE,
+                      warning=FALSE,
+                      fig.width = 5,
+                      fig.height = 5,
+                      fig.align = 'center')
+
+library(magick)
+library(png)
+library(grid)
+library(emo)
+library(icon)
+library(knitr)
+```
+
+
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='left',cache=FALSE}
+img <- readPNG("./Figures/logo.png")
+grid.raster(img)
+```
+
+# **R-Ladies Melbourne second anniversary**
+
+To celebrate our second birthday `r emo::ji("birthday")` we wanted to bring out the `r icon::fa_r_project(colour="blue")` diversity of our community. That's why we asked to all our members and all the `r icon::fa_r_project(colour="purple")`-Ladies Melbourne followers to send us their favourite R tip and share it in a 5 minutes presentation at our event. The lightning talks were followed by a panel discussion about R worlflows and communication of a project results. 
+Below are some highlights from the night and all the beautiful tips that we manage to collect!
+
+Have fun `r emo::ji("wink")`!!
+
+<br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">⁦<a href="https://twitter.com/annaquagli?ref_src=twsrc%5Etfw">@annaquagli</a>⁩ on the summary of our last year : This is a great achievement that we reached more than 1000 members in Sep! Thanks to all the members and sponsors! ⁦ <a href="https://t.co/45nbHoJELz">pic.twitter.com/45nbHoJELz</a></p>&mdash; R-Ladies Melbourne (@RLadiesMelb) <a href="https://twitter.com/RLadiesMelb/status/1052455382684192768?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<br><br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The first &amp; most important part of presenting your findings is telling your audience why they should care about the results. If you don’t have their attention, it doesn’t matter how pretty your graphs are.<br>-<a href="https://twitter.com/nikkirubinstein?ref_src=twsrc%5Etfw">@nikkirubinstein</a> on how to give a talk<a href="https://twitter.com/RLadiesMelb?ref_src=twsrc%5Etfw">@RLadiesMelb</a> <a href="https://twitter.com/hashtag/Rladies?src=hash&amp;ref_src=twsrc%5Etfw">#Rladies</a> <a href="https://twitter.com/hashtag/howRYou?src=hash&amp;ref_src=twsrc%5Etfw">#howRYou</a> <a href="https://t.co/llQLlBENMM">pic.twitter.com/llQLlBENMM</a></p>&mdash; David M for Murder (@frostickle) <a href="https://twitter.com/frostickle/status/1052474544106045440?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<br><br>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Fantastic way to celebrate the second anniversary of <a href="https://twitter.com/RLadiesMelb?ref_src=twsrc%5Etfw">@RLadiesMelb</a>! Nice baking <a href="https://twitter.com/trashystats?ref_src=twsrc%5Etfw">@trashystats</a> 🎂 <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> celebration 🎊 <a href="https://t.co/eFVQCpIZE4">pic.twitter.com/eFVQCpIZE4</a></p>&mdash; Nikki Rubinstein (@nikkirubinstein) <a href="https://twitter.com/nikkirubinstein/status/1052479925947576321?ref_src=twsrc%5Etfw">October 17, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<br><br>
+
+
+
+
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=FALSE,fig.asp=0.80}
+img <- readPNG("Figures/group_photo.png")
+grid.raster(img)
+```
+<br>
+
+
+
+# **Visualisation**
+
+## Having fun with `base::plot()`!
+
+
+**Author**: Soroor Zadeh
+
+```{r}
+par(bg="black")
+plot( (-2)^as.complex( seq(0, 7, 0.03) ), pch=21, bg=c( 2,3), xlab="", ylab="", xaxt="n", yaxt="n")
+text(-30, 40, "Happy Anniversary! \n R-Ladies Melbourne", cex=2,col="#88398A")
+```
+
+<br>
+
+***
+
+<br>
+
+## Violin plots with overlayed boxplots and coloured by group: `position_dodge()`
+
+**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
+
+Whenever I have to display to compare continuous variables this has become my favourite way to go! *Violin plot* + *boxplot* allows me to see both the quantiles and the overall density distribution that if can often be missed with only boxplots.
+
+```{r}
+library(ggplot2)
+
+data <- data.frame(Gene = rep(c("Gene1","Gene2","Gene3","Gene4"),each=46),
+                   Counts = log2(rbinom(n = 46*4,size = 1000,prob = 0.3)),
+                   CBF = sample(x = c("A","B"),size = 46*4,replace=TRUE))
+
+dodge <- position_dodge(width = 1)
+ggplot(data,aes(x=Gene,y=Counts,fill=CBF)) + theme_bw()  + theme(axis.text.x = element_text(angle = 0)) + geom_violin(trim=FALSE,position = dodge) + geom_boxplot(width=.1,position = dodge,show.legend = FALSE) +  labs(y="log2Counts") + facet_wrap(~Gene,scales="free_x")
+```
+
+<br>
+
+***
+
+<br>
+
+## `DT` package for interactive tables
+
+**Authors**: [Sepideh Foroutan](https://twitter.com/S_Foroutan)
+
+```{r }
+library(DT)
+library(reshape2) # to get the "tips" dataset
+
+data("tips")
+
+datatable(tips, filter = "top", options = list(pageLength = 8))  %>%   ## Bold some numbers:
+  formatStyle('total_bill', 
+    fontWeight = styleInterval(18, c('normal', 'bold'))) %>%  ## show colour bar
+  formatStyle('tip', 
+    background = styleColorBar(tips$tip, 'mediumpurple'),
+    backgroundSize = '100% 95%',
+    backgroundRepeat = 'no-repeat',
+    backgroundPosition = 'centre') %>%   ## transform values
+  formatStyle('sex', 
+    transform = 'rotateX(-45deg) rotateY(-30deg) rotateZ(-50deg)',
+    backgroundColor = styleEqual(unique(tips$sex), c('lightblue', 'lightseagreen'))) %>%  ## colour value/background
+  formatStyle('size', 
+    color = styleInterval(c(2, 4), c('blue', 'black', 'red')), 
+    backgroundColor = styleInterval(c(2, 4), c('white', 'gray', 'gray50')))
+```
+
+<br>
+
+***
+
+<br>
+
+## Different ways of plotting your data with `ggplot()` using `geom_histogram()` and `geom_density_ridges()`
+
+**Authors**: Marie Trussart
+
+I used here ggd, which is a data frame extracted from clustering and expression datasets and that's how I define it:
+
+`ggd <- melt(data.frame(cluster = cell_clustering, expr),id.vars = "cluster", value.name = "expression")`
+
+
+Example of the data:
+
+```{r echo=FALSE,message=FALSE,fig.width=5,fig.height=5,fig.align='center',cache=FALSE,fig.cap="Screenshot showing the first six rows of the data used to generate the plots below.",fig.asp=0.40}
+library(png)
+library(grid)
+img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/marie_data_example.png")
+grid.raster(img)
+```
+
+<br>
+
+```{r eval=FALSE}
+### Density distributions
+ggplot() +
+geom_density_ridges(data = ggd, aes(x = expression, y = cluster), alpha = 0.3) +  scale_x_continuous(expand = c(0.01, 0)) +
+scale_y_discrete(expand = c(0.01, 0))+
+theme_ridges() +
+theme(axis.text = element_text(size = 7),
+strip.text = element_text(size = 7))
+ggsave("Fig1.pdf")
+
+## Histogram distribution by facet
+ggplot(data = ggd, aes(x = expression)) + facet_wrap(~cluster, scales = 'free_y') +
+geom_histogram()+
+theme(strip.text.x = element_text(size=6),
+        strip.text.y = element_text(size=6),
+        axis.text = element_text( size = 8 ),
+        axis.text.x = element_text( size = 8 ),
+        axis.title = element_text( size = 8, face = "bold"))
+ggsave("Fig2.pdf")
+
+### All the histogram distributions on the same plot
+ggplot(data =  ggd[grep("DG19", ggd$cluster),], aes(x = expression,fill=cluster))  +
+geom_histogram()
+ggsave("Fig3.pdf")
+```
+
+
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 1. `geom_density_ridges()`"}
+img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig1.png")
+grid.raster(img)
+```
+
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 2. `geom_histogram()` and `facet_wrap()`"}
+img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig2.png")
+grid.raster(img)
+```
+
+```{r echo=FALSE,message=FALSE,fig.align='center',cache=FALSE, fig.cap="Figure 3. Another example of `geom_histogram() colouring by classes.`"}
+img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/MarieTrussart_Fig3.png")
+grid.raster(img)
+```
+
+<br>
+
+***
+
+<br>
+
+## Data visualisation via volcano plots
+
+**Author**: [Erika Duan](https://github.com/erikaduan)
+
+As a wet-lab immunologist, most of my job involves trying to **find** and then **illustrate** meaningful patterns from large biological datasets.  
+
+We obtain **a lot** of data from RNA sequencing experiments. These are experiments which look at how many mRNA molecules (i.e. message signals) are found in an object and how these signals differ in quantity across multiple objects.  
+
+We often analyse datasets with changes across >10,000 signals between >=2 different objects. A [volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_(statistics)) is one way we visualise all statistically significant versus non-significant differences in one graph.  
+
+### A typical data analysis pipeline
+
+1. A large matrix is obtained, containing the number of signals 'counted' per signal type per object. Each row contains a unique signal ID (i.e. in my case a unique gene ID) and each column contains all the signal counts for one single object. *The researcher also has additional information about each object (i.e. object classification categories like object type, timepoint, batch etc.). This is very important for downstream RNAseq analysis, but not required for this analysis.* 
+
+2. A minimal information threshold is set (i.e. minimal signal count per signal > 1 for at least 1 object). **An awesome statistical package**, in my case `DESeq2` (https://bioconductor.org/packages/release/bioc/html/DESeq2.html), is then used to test whether any signals are differentially expressed between different objects. 
+
+3. **Data visualisation** of all statistically **significant** versus **non-significant** signals between at least two objects, with the aim of highlighting any new or particularly interesting biological patterns.
+
+
+Here, a **volcano plot** is used to depict:
+
+* how many signals are differentially expressed (using a statistical cut-off),
+* **and** by how much (i.e. signal fold change),
+* between two objects tested.  
+
+
+### Drawing volcano plots with `ggplot2`
+
+A **results output file** can be created in `DESeq2` i.e. using `results(dds, contrast=c("Sample.type", "A", "B"))` and converted into a dataframe. 
+
+For convenience, I have provided a fake results output called `AvsB_results.csv` for use (i.e. a dataframe containing all signal differences between object A versus object B). Since we will be using both `dplyr` and `ggplot2`, I always find it more convenient to download the `tidyverse` package.    
+
+```{r }
+library("tidyverse")
+library("ggrepel") # We will also need this package for the final labelling of data points. 
+```
+
+We start with our dataset of interest. 
+
+Note that for the volcano plot, you only need **three** columns of information:
+
+1. Gene symbol (aka unique signal ID)
+2. Log2(fold change) (aka how much the level of each signal in A differs from B by)
+3. Padj (the adjusted P-value or statistical likelihood for whether a signal in A is not different to that of B)
+
+```{r}
+AvsB_results <- read.csv("How_R_You_R-LadiesMelbourne_code_and_tips_data/AvsB_results.csv", header = T, stringsAsFactors = F)
+str(AvsB_results) # The dataframe contains the 3 columns of info described above. 
+```
+
+A simple volcano plot depicts:  
+
+* Along its x-axis: log2(fold change) 
+* Along its y-axis: -log10(padj) 
+
+Note that the y-axis is depicted as -log10(padj), which allows the data points (i.e. volcano spray) to project upwards as the absolute value along the x axis increases. Graphically, this is more intuitive to visualise.
+
+```{r}
+
+simple_vp <- ggplot(AvsB_results, aes(x = log2FoldChange,
+                         y = -log10(padj))) + 
+  geom_point() # A simple volcano plot is created.
+
+simple_vp
+
+```
+
+This plot is too plain as objects of interest do not easily jump out at us.  
+A good volcano plot will highlight all the signals (represented by individual data points) which are significantly different between A vs B.  
+In this case, we would be interested in highlighting genes which have a **padj <= 0.05 (or a -log10(padj) >= 1.30103)** (my chosen statitical cut-off). I would also be interested in highlighting genes which additionally have a log2 fold change <= -1 or >= 1 (i.e. signals which are at least 2-fold bigger or smaller in A vs B). 
+
+I can now define these quandrants using:
+
+```{r}
+
+simple_vp + 
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") + # horiztonal dashed line
+  geom_vline(xintercept = c(-1,1), linetype = "dashed") # vertical dashed line
+
+```
+
+The top-left quadrant contains all signals that are significantly decreased in A vs B, and the top right quandrant contains genes that are significantly increased in A vs B. The remaining genes are not significantly different and hence much less interesting to me.  
+
+The next thing we can therefore do is to **highlight** these three different groups of signals.   
+To do this, I return to my original dataframe and use the `dplyr::mutate` function.  
+
+```{r}
+
+AvsB_results <- mutate(AvsB_results,
+                       AvsB_type = ifelse(is.na(padj)|padj > 0.05|abs(log2FoldChange) < 1, "ns", 
+                         ifelse(log2FoldChange <= -1, "down",
+                                "up"))) # creates a new column called AvsB_type, with signals classified as "ns", "down" or "up"
+
+group_by(AvsB_results, AvsB_type) %>%
+  summarize(Counts = n()) # counts how many signals are present in each category
+
+```
+
+Now that AvsB_type can segregate each signal based on whether it is 'up', 'down' or 'ns' (i.e. non-significant), I can colour these three signal types differently (and/or change their size/transparency to make different points stand out more versus less). 
+
+```{r}
+
+cols <- c("up" = "#ffad73", "down" = "#26b3ff", "ns" = "grey") 
+sizes <- c("up" = 3, "down" = 3, "ns" = 1) 
+alphas <- c("up" = 1, "down" = 1, "ns" = 0.5)
+
+ggplot(AvsB_results, aes(x = log2FoldChange,
+                         y = -log10(padj))) +
+  geom_point(aes(colour = AvsB_type, #specify point colour by AvsB_type
+                 size = AvsB_type, #specify point size by AvsB_type
+                 alpha = AvsB_type)) + #specify point transparency by AvsB_type
+  scale_color_manual(values = cols) +
+  scale_size_manual(values = sizes) +
+  scale_alpha_manual(values = alphas) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") + 
+  geom_vline(xintercept = c(-1,1), linetype = "dashed") 
+  
+```
+
+This is great! But there is still one final nifty trick!  
+
+As a biologist, I often get >100s of genes which are significantly increased or decreased between two objects. To examine whether **interesting patterns (interconnected signals)** exist within these 100 genes, I run them through gene over-representation databases like [this one](http://software.broadinstitute.org/gsea/msigdb/index.jsp). 
+
+
+```{r}
+
+Interesting_pathway <- c("Nemf", "Rft1", "Atp5h") # An external database identifies an interesting signal network!
+
+```
+
+We would like to highlight these particular signals, by representing them in a different (darker) colour and also by labelling each individual point of interest. 
+
+```{r}
+ggplot(AvsB_results, aes(x = log2FoldChange,
+                         y = -log10(padj))) +
+  geom_point(aes(colour = AvsB_type,
+                 size = AvsB_type,
+                 alpha = AvsB_type)) +
+  scale_color_manual(values = cols) +
+  scale_size_manual(values = sizes) +
+  scale_alpha_manual(values = alphas) +
+  scale_x_continuous(limits = c(-4, 4)) + # changing the x-axis to make my volcano plot symmetrical
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") + 
+  geom_vline(xintercept = c(-1,1), linetype = "dashed") +
+  geom_text_repel(data = AvsB_results %>% 
+                    filter(Symbol %in% Interesting_pathway), # labels only genes in the interesting pathway
+                  aes(label = Symbol),
+                  size = 3.5,
+                  color = "black",
+                  nudge_x = 0.3, nudge_y = 0.1) + 
+  geom_point(data = AvsB_results %>%
+               filter(Symbol %in% Interesting_pathway), # adds new points for only genes in the interesting pathway
+             color = "#d91933",
+             size = 2) +
+  theme_classic() + # creates a white background
+  theme(panel.border = element_rect(colour = "black", fill=NA, size= 0.5)) # creates a plot border
+
+```
+
+Viola! Enjoy your volcano plot (and remember, there are lots of graphical modifiers you can use to visualise data using them, as long as your methods are logical and reasonable)! 
+
+### Development notes  
+**Chuanxin Liu** devised the elegant strategy for labelling all signal types as 'up', 'ns' or 'down' and the code for the labelling of specific signal data points.
+
+### Other resources  
+
+http://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
+
+http://www.sthda.com/english/wiki/ggplot2-texts-add-text-annotations-to-a-graph-in-r-software
+
+http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#change-x-and-y-axis-limits
+
+<br>
+
+***
+
+<br>
+
+## Create multiple plots using for loop / Code Snippets
+
+**Author**: Ivy Lin
+
+
+
+Have a look at Ivy's R tip published on RPubs http://rpubs.com/IvyLin/R-tips or got through her code below. 
+
+### Tip 1 : Create multiple plots using for loop
+
+Demo dataset : Telcom Customer Churn data, source: <https://www.kaggle.com/blastchar/telco-customer-churn>
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+When we want to visually explore a dataset with many variables...   
+Is there any efficient way to create multiple plots at the same time? 
+
+```{r}
+#import data (default stringAsFactor = TRUE )
+customer <- read.csv("How_R_You_R-LadiesMelbourne_code_and_tips_data/WA_Fn-UseC_-Telco-Customer-Churn.csv",stringsAsFactors = T)
+str(customer)
+```
+
+
+* **Data wrangling**
+
+```{r }
+# Make ID back to correct format
+customer$customerID <- as.character(customer$customerID)
+
+#reorder
+customer <- customer[c(1,21,2:20)]
+
+# scan missing value
+colSums(is.na(customer))
+
+#observation with missing values 
+missing <- filter(customer, is.na(customer$TotalCharges) == TRUE )
+
+# since TotalCharges is roughly equals to tenure * monthly charges, I replace the missing value accordingly.
+customer_m <- customer %>% mutate(TotalCharges = ifelse(is.na(customer$TotalCharges), customer$MonthlyCharges*customer$tenure, TotalCharges) )
+```
+
+
+* **Data exploratory on different variables**
+
+Tips: use for-loop to create multiple plots in just 1 command.   
+Requirement: you'll need to have varibles in same data type. 
+
+```{r}
+variables <- list(  'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService','OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport','StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling','PaymentMethod' )
+
+for (i in variables){
+ plot <-  ggplot(customer_m, aes_string(x = i, fill = as.factor(customer_m$Churn)))+ 
+    geom_bar( position = "stack")+ scale_fill_discrete(name = "churn")
+ print(plot)
+}
+```
+
+* Pros : Efficient way to do exploratory plot. 
+* Cons : Cannot adjust individual plot. 
+
+
+### Tip 2: Code Snippet: 
+
+Just type : snippet plus function name e.g. `snippet fun` , `snippet apply`.   
+Or View the build-in snippets from Tool > Global options > Code > Snippet, you can create your own snippet. 
+
+
+```{r echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("How_R_You_R-LadiesMelbourne_code_and_tips_data/Code_snippet.png")
+grid.raster(img)
+```
+
+```{r eval=FALSE}
+# example for snippet fun
+for(){
+  
+}
+
+for (i in appple) {
+  
+}
+```
+
+* Detailed document about Code Snippets:<https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets>
+* RStudio Tips and Tricks by Sean Lopp  <https://www.youtube.com/watch?v=kuSQgswZdr8>
+
+
+<br>
+
+***
+
+<br>
+
+# **Dealing with strings and factors**
+
+## Matching strings
+
+**Author**: [Saskia Freytag](https://github.com/SaskiaFreytag)
+
+Find Saskia's fabulous slides about all the ways to match strings in R [here](https://matchingstrings.netlify.com/#1). 
+
+```{r echo=FALSE,message=FALSE,fig.width=3,fig.height=3,fig.align='center',cache=FALSE}
+library(png)
+library(grid)
+img <- readPNG("./How_R_You_R-LadiesMelbourne_code_and_tips_data/saskia.png")
+grid.raster(img)
+```
+
+<br>
+
+***
+
+<br>
+
+## `library(forcats)`: the incredible things you can do with your `R` factors!
+
+**Author**: [Anna Quaglieri](https://github.com/annaquaglieri16)
+
+
+```{r message=FALSE}
+library(forcats)
+library(datasets.load)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(cowplot)
+```
+
+```{r}
+datatable((ChickWeight))
+
+# Let's make diet a factor
+ChickWeight$Diet <- factor(ChickWeight$Diet,levels=c(1,2,3,4),labels = c("Diet1","Diet2","Diet3","Diet4"))
+```
+
+* `forcats::fct_relevel`: reorder manually
+
+The default factor ordering is by alphabetical ordering.
+
+```{r fig.width=8,fig.height=4}
+table(ChickWeight$Diet)
+
+p1=ChickWeight %>% 
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() + ggtitle("Initial")+ theme_bw()
+
+p2=ChickWeight %>% 
+  mutate(Diet = fct_relevel(Diet,"Diet2","Diet3","Diet1","Diet4")) %>%
+ggplot(aes(x=Diet,y=weight)) + geom_boxplot() +  ggtitle("After fct_relevel(Diet)") + theme_bw()
+
+plot_grid(p1,p2)
+```
+
+* `forcats::fct_infreq`: reorder by factor frequency
+
+```{r fig.width=8,fig.height=4}
+# let's sample out some rows
+sample_chick <- ChickWeight[sample(nrow(ChickWeight),size=100),]
+
+table(sample_chick$Diet)
+
+p1=sample_chick %>% 
+  ggplot(aes(x=Diet)) + geom_bar() + ggtitle("Initial")+ theme_bw()
+
+
+table(fct_infreq(sample_chick$Diet))
+
+p2=sample_chick %>% 
+  mutate(Diet = fct_infreq(Diet)) %>%
+ggplot(aes(x=Diet)) + geom_bar() + ggtitle("After fct_infreq(Diet)") + theme_bw()
+
+plot_grid(p1,p2)
+```
+
+* `forcats::fct_reorder`: reorder by values of another variable
+
+```{r fig.width=8,fig.height=4}
+# chickwts	Chicken Weights by Feed Type
+datatable(chickwts)
+class(chickwts$feed)
+
+p1=chickwts %>% 
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() + ggtitle("Initial")+ theme_bw() + theme(legend.position = "bottom")
+
+p2=chickwts %>% 
+  mutate(feed = fct_reorder(feed,weight)) %>%
+  ggplot(aes(x=feed,y=weight,fill=feed)) + geom_boxplot() + ggtitle("After fct_reorder(feed,weight)") + theme_bw()+ theme(legend.position = "bottom")
+
+plot_grid(p1,p2)
+```
+
+<br>
+
+***
+
+<br>
+
+# **Data manipulation**
+
+<br>
+
+## `mutate_at()` and `summarise_at()`
+
+**Author**: [Lucy Liu](https://twitter.com/lucyleeow)
+
+A few weeks ago I learnt about `mutate_at()` and `summarise_at()`.
+
+### Mutate
+
+The well known `mutate()` lets you do something like this:
+
+```{r, message=FALSE, warning=FALSE}
+# load package
+library(tidyverse)
+```
+
+```{r}
+iris %>%
+  mutate(newcol = Sepal.Length * 10) %>%
+  head()
+```
+
+`mutate_at()` is used to perform a function on several columns at once. The syntax goes like this:
+
+* Tell it which columns you want to 'transform'. You can use `vars()` to do this. `vars()` understands the same specifications as `select()` e.g. `-c(col)`, `starts_with()`, `contains()`.
+* Tell it the function you want to perform.
+
+When you only want to perform 1 function, you can get it to just replace the old columns:
+
+```{r}
+iris %>%
+  mutate_at(vars(starts_with("Petal")), log) %>%
+  head()
+```
+
+
+Here the columns Petal.Length and Petal.Width are now logs of the old columns.
+
+If instead you wanted to add new columns to the end, use `funs()`:
+
+```{r}
+iris %>%
+  mutate_at(vars(starts_with("Petal")), 
+            funs(log = log(.))) %>%
+  head()
+```
+
+Note that we now need to use the `.` notation. This just means the data in the column selected.
+
+You can also perform several functions:
+
+```{r}
+iris %>%
+  mutate_at(vars("Petal.Width"), funs(
+    norm = ./mean(.),
+    log = log(.)
+  )) %>%
+  head()
+```
+
+### Summarise
+
+`summarise_at()` works similarly:
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarise_at(vars(starts_with("Petal")), 
+               funs(mean = mean(.),
+                    median = median(.),
+                    sd = sd(.)))
+```
+
+You select columns using `vars()` and use `funs()` to tell it what function you want to perform.
+
+<br>
+
+***
+
+<br>
+
+## Manipulate a list to transform it to a data frame
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+```{r eval=FALSE}
+test <- map_df(yourlist, ~ data_frame(size = paste(file.size(.x), collapse=" ")) %>% mutate(filename = .x))
+```
+
+
+<br>
+
+***
+
+<br>
+
+# **Accessing company information from Company House (UK)**
+
+**Author**: [Maria Prokofieva](https://github.com/mariaprokofieva)
+
+Companies House <https://beta.companieshouse.gov.uk/> is the United Kingdom's registrar of companies. As a member of the Public Data Group, they make their company-related data available for public use via their API <https://developer.companieshouse.gov.uk/api/docs/>
+
+You can search company related information using http request, save it and use it for your analysis. You can either search one company or a group of companies. They are very generous with the inforamtion they provide.
+
+### API key authentication
+
+The Companies House API works with authentication credentials that are sent with each request.
+
+To get an API key, you need to setup an applications and register it with the Companies House Developer Hub as an API Key application. This can be done here: <https://developer.companieshouse.gov.uk/developer/applications>
+
+
+This will allocate a unique key to the application which can be sent with any GET request for a public resource served by the Companies House API.
+
+In this example we are searching information about two companies with registration numbers 05141488 and 09202639
+
+```{r }
+
+options(stringsAsFactors = FALSE)
+library(knitr)
+library(httr)
+library(jsonlite)
+library(data.table)
+library(RCurl)
+library(purrr)
+
+#company overview page - List of companies
+pages = list()
+dataFrame = list()
+
+companies<-c("05141488","09202639")
+
+companyList <- paste("https://api.companieshouse.gov.uk/company/", companies, sep="")
+
+for(u in companyList) {
+  
+  pages[[u]] = GET(u, authenticate("q3LHh0aXgO8d2OI_Mq4uTJb_Mw-sNZPLTKzrb1Fl", ""))
+  
+  cont <- content(pages[[u]], as = "parsed", type = "application/json")
+
+#explicit convertion to data frame
+  dataFrame[[u]] <- data.frame(cont)
+}
+```
+
+Now, we have a dataframe with A LOT of information which we do not really need in full, so select those entries you do need.
+
+```{r }
+
+#select elements from lists
+
+dataFrameSelected<-lapply(dataFrame, `[`, c('company_number',
+                                            'date_of_creation',
+                                            'type',
+                                            'company_name'))
+
+
+
+#convert selected to dataframe
+dataFrameCompanyOverview = do.call(rbind, dataFrameSelected)
+
+#dataFrameCompanyOverview
+
+kable(dataFrameCompanyOverview, format = "html", caption = "Company data from CompanyHouse")
+
+```
+
+<br>
+
+***
+
+<br>
+
+
+# **Where to get help with your `R` question?**
+
+**Author**: [Maëlle Salmon](https://masalmon.eu/)
+
+"Imagine you have an `R` question..." Check out Maëlle super comprehensive blog post [Where to get help with your `R` question?](https://masalmon.eu/2018/07/22/wheretogethelp/) about how to make your search the most efficient and targeted possible!  
+
+<br>
+
+***
+
+<br>
+
+# **How to get all the functions within a package**
+
+**Author**: [Emi Tanaka](http://github.com/emitanaka)
+
+Below you can find all the functions in `dplyr` (minus the internal hidden ones). There are in total `r length(ls("package:dplyr"))` functions in `dplyr`. 
+
+```{r, message=F, warning=F}
+library(dplyr)
+ls("package:dplyr")
+```
+
+<br>
+
+***
+
+<br>
+
+# **`sessionInfo()`**
+
+```{r}
+sessionInfo()
+```
+
+
+
